@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="th">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>กิตติธัช สกุลศักดิ์พินิจ — Business Analyst</title>
+<title>Kittitouch Sakulsakpinit — Business Analyst</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -113,6 +113,7 @@
   }
   .meta span::after { content: "·"; color: var(--rule); margin-left: 10px; }
   .meta span:last-child::after { content: ""; }
+  .name-th { text-transform: none; letter-spacing: .02em; }
   a { color: inherit; text-decoration: none; }
 
   /* ---------- summary ---------- */
@@ -248,6 +249,20 @@
     .print-btn { display: none; }
     .page { margin: 0; box-shadow: none; width: auto; min-height: 0; padding: 13mm 14mm; }
   }
+
+  /* ---------- EN sheet only ----------
+     อังกฤษกินบรรทัดมากกว่าไทยราว 6mm ในเนื้อหาชุดเดียวกัน
+     รีดระยะบรรทัดลงเล็กน้อยให้จบ A4 หน้าเดียวเท่ากับแผ่นไทย */
+  .summary { font-size: 9.9pt; line-height: 1.46; }
+  li { font-size: 9.2pt; line-height: 1.37; margin-bottom: 2px; }
+  .entry { margin-bottom: 10px; }
+  .work { margin-bottom: 8px; }
+  .work p { font-size: 9.1pt; line-height: 1.38; }
+  section + section { margin-top: 10px; }
+  .summary { margin-top: 11px; }
+  .body { margin-top: 14px; }
+  .skill-block { margin-bottom: 8px; }
+  footer { margin-top: 12px; }
 </style>
 </head>
 <body>
@@ -255,21 +270,19 @@
 <div class="page">
 
   <header>
-    <!-- รูปโปรไฟล์ — ไฟล์ profile.jpg อยู่โฟลเดอร์เดียวกับไฟล์นี้
-         ⛔ ไม่อยากใส่รูป: ลบ <figure> ก้อนนี้ทิ้งทั้งก้อน หัวเรซูเม่จะกลับไปเต็มความกว้างเอง -->
     <figure class="photo" id="photo">
-      <img src="profile.jpg" alt="กิตติธัช สกุลศักดิ์พินิจ"
+      <img src="profile.jpg" alt="Kittitouch Sakulsakpinit"
            onerror="document.getElementById('photo').classList.add('empty')" />
-      <div class="hint">ไม่พบไฟล์<br />profile.jpg</div>
+      <div class="hint">profile.jpg<br />not found</div>
     </figure>
 
     <div class="head-text">
-      <div class="name">กิตติธัช สกุลศักดิ์พินิจ</div>
-      <div class="name-en">Kittitouch Sakulsakpinit</div>
+      <div class="name">Kittitouch Sakulsakpinit</div>
+      <div class="name-en name-th">กิตติธัช สกุลศักดิ์พินิจ</div>
       <div class="role">Business Analyst · Technology Solutions · Pre-Sales</div>
       <div class="meta">
-        <span>กรุงเทพฯ ประเทศไทย</span>
-        <span><a href="tel:0813996955">081-399-6955</a></span>
+        <span>Bangkok, Thailand</span>
+        <span><a href="tel:+66813996955">+66 81-399-6955</a></span>
         <span><a href="mailto:kittitouch.dev@gmail.com">kittitouch.dev@gmail.com</a></span>
         <span><a href="https://github.com/Kittitouchhh">github.com/Kittitouchhh</a></span>
       </div>
@@ -278,48 +291,49 @@
   </header>
 
   <p class="summary">
-    Business Analyst ที่ทำงานระหว่าง <b>Business, Customer และ Technology</b> ดูแลงานกับลูกค้าแบบ End-to-End
-    ตั้งแต่ Discovery, Requirement Gathering และ Process Analysis ไปจนถึง Solution Design, UX/UI และ Specification
-    ปัจจุบันรับผิดชอบงาน ERP ให้ลูกค้าองค์กร ประชุมกับเจ้าของกิจการและผู้บริหารฝั่งลูกค้าโดยตรง และเคย
-    <b>เป็นผู้นำเสนอหลักและมีส่วนในการปิดการขายโครงการ</b> — ด้วยพื้นฐาน Software Development จึงประเมิน Technical
-    Feasibility ได้ และแปลง Business Requirements ให้ทีม Development นำไปพัฒนาต่อได้
+    Business Analyst working across <b>Business, Customer and Technology</b>, handling client engagements
+    end-to-end — from Discovery, Requirement Gathering and Process Analysis through to Solution Design, UX/UI and
+    Specification. Currently responsible for enterprise ERP work, meeting client owners and executives directly,
+    and experienced in <b>leading client presentations and contributing to project closing</b>. A Software Development
+    background supports realistic technical feasibility assessment and the translation of business requirements
+    into work the development team can build.
   </p>
 
   <div class="body">
 
     <main>
       <section>
-        <h2>ประสบการณ์</h2>
+        <h2>Experience</h2>
 
         <div class="entry">
           <div class="entry-top">
             <h3>BluePeak Innovation Co., Ltd.</h3>
-            <div class="when">พ.ค. 2026 – ปัจจุบัน</div>
+            <div class="when">May 2026 – Present</div>
           </div>
-          <div class="org"><em>Business Analyst</em> · เริ่มจากฝึกงาน Full-stack Developer 1 เดือน ก่อนย้ายมารับผิดชอบงาน Business Analysis และ Solution Design</div>
+          <div class="org"><em>Business Analyst</em> · Started as a Full-stack Developer intern for one month before moving into Business Analysis and Solution Design</div>
           <ul>
-            <li><b>เก็บ Requirement ข้าม Stakeholder หลายระดับ</b> ตั้งแต่เจ้าของกิจการและผู้บริหารไปจนถึงพนักงานหน้างานในโรงงาน แล้วสรุปกลับให้ยืนยัน</li>
-            <li><b>นำ Requirement Workshop</b> กับพนักงานโรงงาน 30+ คนและทีมขาย 20+ คน ดำเนินการประชุมและถามต่อจนได้ความต้องการที่ชัดเจน</li>
-            <li><b>ออกแบบ Solution</b> ผ่าน Wireframe / Mockup (Figma, HTML) และ Process Flow (Miro) ให้ลูกค้ายืนยันก่อนเริ่มพัฒนา</li>
-            <li><b>เขียน User Story, Acceptance Criteria และ Decision / Assumption / Risk Log</b> แยกสิ่งที่ลูกค้ายืนยันแล้วออกจากสมมติฐานของทีม</li>
-            <li><b>นำเสนอและ Demo ระบบต่อลูกค้าองค์กร</b> ตอบคำถามเชิงเทคนิคหน้างาน อบรมผู้ใช้ และมีส่วนในการปิดการขายโครงการ</li>
-            <li><b>อ่าน Schema ของระบบเดิมและแก้โค้ด</b>ด้วย React, TypeScript, REST API และ Prisma จึงประเมิน Technical Feasibility และ Effort ได้ตามจริงมากขึ้น</li>
+            <li><b>Gathered requirements across stakeholder levels</b>, from company owners and executives to frontline factory staff, and summarized the findings back to them for confirmation.</li>
+            <li><b>Facilitated requirements workshops</b> with 30+ factory employees and 20+ sales staff, leading discussions and asking follow-up questions until requirements were clear.</li>
+            <li><b>Designed solutions</b> using wireframes, mockups (Figma, HTML) and process flows (Miro), validated with clients before development.</li>
+            <li><b>Created User Stories, Acceptance Criteria and Decision / Assumption / Risk Logs</b> to separate client-confirmed requirements from internal assumptions.</li>
+            <li><b>Led client presentations and system demos</b>, answered technical questions on site, ran user training, and contributed to project closing.</li>
+            <li><b>Read existing schemas and modified code</b> using React, TypeScript, REST APIs and Prisma, enabling more realistic technical feasibility and effort estimation.</li>
           </ul>
         </div>
       </section>
 
       <section>
-        <h2>ผลงานเด่น</h2>
+        <h2>Selected Projects</h2>
 
         <div class="work">
           <h3>Procurement &amp; Inventory ERP <span class="muted">— Business Analyst</span></h3>
-          <p><b>โครงการ ERP สำหรับลูกค้าองค์กรรายเดียว</b> — วิเคราะห์กระบวนการจัดซื้อ–คลังเดิม ทำ Gap Analysis และ Field-level Mapping ของเอกสาร 7 ประเภท ออกเป็น Specification และ API Spec พร้อมรวบประเด็นค้างส่งเวนเดอร์ยืนยันก่อนเริ่มงาน</p>
+          <p><b>Enterprise ERP project for a single client</b> — analyzed the client's procurement and inventory processes, performed Gap Analysis and field-level mapping across 7 document types, and produced Specifications and API Specs, consolidating open issues for vendor confirmation before kickoff.</p>
           <div class="tags">Gap Analysis · API Specification · Approval Flow · Permission Design</div>
         </div>
 
         <div class="work">
           <h3>Production Planning &amp; Tracking ERP <span class="muted">— Business Analyst</span></h3>
-          <p><b>ระบบ Multi-tenant ที่ลูกค้าหลายบริษัทเช่าใช้แบบ Subscription รายเดือน</b> — สัมภาษณ์หัวหน้าฝ่ายผลิตและพนักงานหน้างานเพื่อเข้าใจกระบวนการจริง แล้วออกแบบให้ยืดหยุ่นพอรองรับได้หลายโรงงาน ทั้งหน้าจอวางแผนแบบไทม์ไลน์และ Dashboard ผู้บริหาร</p>
+          <p><b>Multi-tenant platform used by multiple companies on a monthly subscription</b> — interviewed production supervisors and frontline staff to understand the real process, then designed it flexibly enough to serve different factories, covering the timeline planning screen and the executive dashboard.</p>
           <div class="tags">Multi-tenant · Subscription Model · Process Analysis · UX/UI · Dashboard · SQL</div>
         </div>
       </section>
@@ -327,21 +341,21 @@
 
     <aside>
       <div class="avail">
-        <b>ฝึกงานสหกิจศึกษา</b>
-        <div class="big">ม.ค.&nbsp;–&nbsp;เม.ย.&nbsp;2027</div>
-        <span>เต็มเวลา<br /><b>สนใจงาน:</b> Pre-Sales / IT Solutions · Solution Consulting · Business Analysis · Technology Business Development</span>
+        <b>Cooperative Education Internship</b>
+        <div class="big">Jan&nbsp;–&nbsp;Apr&nbsp;2027</div>
+        <span>Full-time<br /><b>Target roles:</b> Pre-Sales / IT Solutions · Solution Consulting · Business Analysis · Technology Business Development</span>
       </div>
 
       <section>
-        <h2>การศึกษา</h2>
+        <h2>Education</h2>
         <div class="skill-block">
-          <h4>วศ.บ. สาขาวิชาวิศวกรรมคอมพิวเตอร์</h4>
-          <p>มหาวิทยาลัยธุรกิจบัณฑิตย์ · เกรดเฉลี่ยสะสม 3.46 <span class="muted">(ณ ปี 3 เทอม 2/2568)</span><br /><b>ทุนเรียนฟรีเต็มจำนวน 4 ปี</b></p>
+          <h4>B.Eng. in Computer Engineering</h4>
+          <p>Dhurakij Pundit University · Cumulative GPA 3.46 <span class="muted">(as of Year 3, Semester 2/2025)</span><br /><b>Full four-year tuition scholarship</b></p>
         </div>
       </section>
 
       <section>
-        <h2>ทักษะ</h2>
+        <h2>Skills</h2>
 
         <div class="skill-block">
           <h4>Business Analysis</h4>
@@ -359,8 +373,8 @@
         </div>
 
         <div class="skill-block">
-          <h4>ภาษา</h4>
-          <p>ภาษาไทย — เจ้าของภาษา (Native)<br />ภาษาอังกฤษ — อ่าน–เขียนใช้ทำงานได้</p>
+          <h4>Languages</h4>
+          <p>Thai — Native<br />English — Working proficiency (reading &amp; writing)</p>
         </div>
       </section>
     </aside>
@@ -368,13 +382,13 @@
   </div>
 
   <footer>
-    <span>กิตติธัช สกุลศักดิ์พินิจ — Business Analyst</span>
+    <span>Kittitouch Sakulsakpinit — Business Analyst</span>
     <span>kittitouch.dev@gmail.com</span>
   </footer>
 
 </div>
 
-<button class="print-btn" onclick="window.print()">บันทึกเป็น PDF</button>
+<button class="print-btn" onclick="window.print()">Save as PDF</button>
 
 </body>
 </html>
