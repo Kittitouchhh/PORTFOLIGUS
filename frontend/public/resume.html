@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>กิตติธัช สกุลศักดิ์พินิจ — Business Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:   #FBF7F0;
+    --ink:     #3A2E24;
+    --ink-mid: #6B5A49;
+    --ink-soft:#8B7862;
+    --accent:  #9A6B43;
+    --rule:    #E4D8C6;
+    --chip:    #F2E9DA;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* พื้นที่รอบ ๆ กระดาษ — ขาวล้วน ให้ตัวกระดาษสีครีมเด่นขึ้น */
+  html { background: #FFFFFF; }
+
+  body {
+    /* สแตกเดียวกับที่ Netflix ใช้บนเว็บ — Netflix Sans เป็นฟอนต์ลิขสิทธิ์เฉพาะ
+       เครื่องที่ไม่มีจะตกมาที่ Anuphan (ทรงใกล้ที่สุด + รองรับไทย) */
+    font-family: "Netflix Sans", "Anuphan", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10.2pt;
+    line-height: 1.6;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 24px auto;
+    padding: 16mm 15mm 14mm;
+    background: var(--paper);
+    box-shadow: 0 10px 40px rgba(58,46,36,.16);
+  }
+
+  /* ---------- header ---------- */
+  header {
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 7mm;
+  }
+  .head-text { flex: 1; min-width: 0; }
+
+  /* รูปโปรไฟล์ — ไม่อยากใส่รูป ลบ <figure class="photo"> ในหน้าเว็บทิ้งได้เลย */
+  .photo {
+    flex: 0 0 auto;
+    width: 26mm;
+    height: 32mm;
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--chip);
+    border: 1px solid var(--rule);
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; display: block; }
+  .photo .hint {
+    display: none;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 7.4pt;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    padding: 6px;
+  }
+  .photo.empty { border-style: dashed; }
+  .photo.empty img { display: none; }
+  .photo.empty .hint { display: flex; }
+
+  .name {
+    font-size: 26pt;
+    font-weight: 700;
+    letter-spacing: -.015em;
+    line-height: 1.15;
+  }
+  .name-en {
+    font-size: 11pt;
+    font-weight: 500;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 3px;
+  }
+  .role {
+    margin-top: 9px;
+    font-size: 10.5pt;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: .04em;
+  }
+  .meta {
+    margin-top: 7px;
+    font-size: 9pt;
+    color: var(--ink-mid);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 10px;
+  }
+  .meta span::after { content: "·"; color: var(--rule); margin-left: 10px; }
+  .meta span:last-child::after { content: ""; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- summary ---------- */
+  .summary {
+    margin-top: 13px;
+    font-size: 10.4pt;
+    line-height: 1.68;
+    color: var(--ink-mid);
+    max-width: 62em;
+  }
+  .summary b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- stats ---------- */
+  .stats {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .stat {
+    background: var(--chip);
+    border-radius: 3px;
+    padding: 8px 10px;
+  }
+  .stat b {
+    display: block;
+    font-size: 15pt;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    color: var(--accent);
+    line-height: 1.2;
+  }
+  .stat span { font-size: 8.4pt; color: var(--ink-mid); line-height: 1.35; display: block; }
+
+  /* ---------- layout ---------- */
+  .body {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 62mm;
+    gap: 0 12mm;
+  }
+  aside { border-left: 1px solid var(--rule); padding-left: 10mm; }
+
+  h2 {
+    font-size: 8.2pt;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 9px;
+  }
+  section + section { margin-top: 18px; }
+
+  /* ---------- entries ---------- */
+  .entry { margin-bottom: 14px; break-inside: avoid; }
+  .entry:last-child { margin-bottom: 0; }
+  .entry-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .entry h3 { font-size: 11pt; font-weight: 600; line-height: 1.4; }
+  .when { font-size: 8.6pt; color: var(--ink-soft); white-space: nowrap; }
+  .org { font-size: 9.4pt; color: var(--ink-mid); margin-bottom: 5px; }
+  .org em { font-style: normal; color: var(--accent); }
+
+  ul { list-style: none; }
+  li {
+    position: relative;
+    padding-left: 13px;
+    margin-bottom: 3.5px;
+    font-size: 9.8pt;
+    line-height: 1.6;
+    color: var(--ink-mid);
+  }
+  li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: .62em;
+    width: 4px; height: 1px;
+    background: var(--accent);
+  }
+  li b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- work list ---------- */
+  .work { break-inside: avoid; margin-bottom: 11px; }
+  .work h3 { font-size: 10.2pt; font-weight: 600; }
+  .work p { font-size: 9.6pt; color: var(--ink-mid); line-height: 1.58; }
+  .tags { margin-top: 3px; font-size: 8.4pt; color: var(--ink-soft); letter-spacing: .02em; }
+
+  /* ---------- sidebar ---------- */
+  .avail { margin-bottom: 16px; }
+  .avail b { display: block; font-size: 9.6pt; font-weight: 600; }
+  .avail .big {
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -.01em;
+    white-space: nowrap;
+    margin: 1px 0 2px;
+  }
+  .avail span { font-size: 8.8pt; color: var(--ink-mid); line-height: 1.5; display: block; }
+
+  .skill-block { margin-bottom: 12px; }
+  .skill-block h4 { font-size: 9.2pt; font-weight: 600; margin-bottom: 3px; }
+  .skill-block p { font-size: 9.2pt; color: var(--ink-mid); line-height: 1.58; }
+  .muted { color: var(--ink-soft); }
+
+  .belief { margin-bottom: 9px; break-inside: avoid; }
+  .belief b { display: block; font-size: 9.4pt; font-weight: 600; }
+  .belief span { font-size: 9pt; color: var(--ink-mid); line-height: 1.55; display: block; }
+
+  footer {
+    margin-top: 18px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    font-size: 8.4pt;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ---------- print ---------- */
+  .print-btn {
+    position: fixed;
+    right: 22px; bottom: 22px;
+    background: var(--ink);
+    color: var(--paper);
+    border: 0;
+    border-radius: 999px;
+    padding: 11px 20px;
+    font-family: inherit;
+    font-size: 10pt;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(58,46,36,.28);
+  }
+  .print-btn:hover { background: var(--accent); }
+
+  @page { size: A4; margin: 0; }
+
+  @media print {
+    html { background: var(--paper); }
+    .print-btn { display: none; }
+    .page { margin: 0; box-shadow: none; width: auto; min-height: 0; padding: 13mm 14mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header>
+    <!-- รูปโปรไฟล์ — ไฟล์ profile.jpg อยู่โฟลเดอร์เดียวกับไฟล์นี้
+         ⛔ ไม่อยากใส่รูป: ลบ <figure> ก้อนนี้ทิ้งทั้งก้อน หัวเรซูเม่จะกลับไปเต็มความกว้างเอง -->
+    <figure class="photo" id="photo">
+      <img src="profile.jpg" alt="กิตติธัช สกุลศักดิ์พินิจ"
+           onerror="document.getElementById('photo').classList.add('empty')" />
+      <div class="hint">ไม่พบไฟล์<br />profile.jpg</div>
+    </figure>
+
+    <div class="head-text">
+      <div class="name">กิตติธัช สกุลศักดิ์พินิจ</div>
+      <div class="name-en">Kittitouch Sakulsakpinit</div>
+      <div class="role">Business Analyst · Business Development · Tech Sales</div>
+      <div class="meta">
+        <span>กรุงเทพฯ ประเทศไทย</span>
+        <span><a href="tel:0813996955">081-399-6955</a></span>
+        <span><a href="mailto:kittitouch.dev@gmail.com">kittitouch.dev@gmail.com</a></span>
+        <span><a href="https://github.com/Kittitouchhh">github.com/Kittitouchhh</a></span>
+      </div>
+    </div>
+
+  </header>
+
+  <p class="summary">
+    Business Analyst ที่เชื่อม <b>Business, Customer และ Technology</b> เข้าด้วยกัน
+    มีประสบการณ์ทำงานจริงกับลูกค้าแบบ    <b>End-to-End</b> ตั้งแต่ Discovery, Requirement Gathering และ Process Analysis
+    ไปจนถึงออกแบบ Solution, UX/UI, เขียน Spec และประสานทีม Development จนระบบใช้งานจริง
+    ปัจจุบันทำ ERP ให้ลูกค้าองค์กรและเข้าร่วมประชุมกับ<b>เจ้าของและผู้บริหารฝั่งลูกค้าโดยตรง</b>
+    รวมถึงมีประสบการณ์<b>นำเสนอและปิดการขายโครงการด้วยตนเอง</b>
+    พร้อมพื้นฐาน Software Development ที่ช่วยให้ประเมิน Technical Feasibility และ Development Effort ได้
+  </p>
+
+  <div class="stats">
+    <div class="stat"><b>50+</b><span>ผู้ใช้ที่เก็บโจทย์เอง — โรงงาน + ทีมขาย</span></div>
+    <div class="stat"><b>30+</b><span>spec / สรุปประชุมที่เขียน</span></div>
+    <div class="stat"><b>20+</b><span>หน้าจอที่ทำ mockup</span></div>
+    <div class="stat"><b>2</b><span>ระบบ ERP ที่อยู่ในทีมส่งมอบ</span></div>
+  </div>
+
+  <div class="body">
+
+    <main>
+      <section>
+        <h2>ประสบการณ์</h2>
+
+        <div class="entry">
+          <div class="entry-top">
+            <h3>Business Analyst</h3>
+            <div class="when">2026 – ปัจจุบัน</div>
+          </div>
+          <div class="org">BluePeak Innovation Co., Ltd. — <em>ฝึกงาน 2 เดือน → ทำงานต่อ</em><br />
+          ERP โรงงานการ์เมนต์ &amp; SaaS ERP ของบริษัท</div>
+          <ul>
+            <li>เก็บ requirement ตั้งแต่ระดับ<b>เจ้าของบริษัทและผู้บริหารฝั่งลูกค้า</b> ไปจนถึงคนหน้างานในโรงงาน แล้วสรุปกลับไปให้ยืนยันภายในวันเดียวกัน</li>
+            <li><b>นำประชุมกลุ่มใหญ่ได้</b> — เก็บโจทย์กับพนักงานโรงงานกว่า 30 คนและทีมขายอีก 20+ คน ยืนพูดนำและถามย้อนกลางห้องที่มีคนฟังเยอะได้</li>
+            <li>ออกแบบและเขียนสเปกโมดูล<b>จัดซื้อและคลังสินค้า</b> พร้อม gap analysis รายฟิลด์ ก่อนเชื่อมข้อมูลเข้าระบบบัญชีภายนอกผ่าน API</li>
+            <li>ทำ <b>Decision / Assumption / Risk Log</b> แยก “ลูกค้ายืนยันแล้ว” ออกจาก “เราสมมติเอง” ให้ย้อนกลับได้เมื่อลูกค้าเปลี่ยนใจ</li>
+            <li>ทำ wireframe และ mockup หน้าจอให้ลูกค้าเคาะ<b>ก่อนเริ่มเขียนโค้ด</b> — แก้บนภาพถูกกว่าแก้บนโค้ดมาก</li>
+            <li>เขียน user story, use case, acceptance criteria และตรวจเอกสาร API ให้ตรงกับที่ระบบทำจริง</li>
+            <li>ทดสอบตามเช็กลิสต์ แจ้งบั๊ก ตามจนปิดจบ แล้วเก็บ feedback หลังส่งมอบไปตั้งเป็นโจทย์รอบถัดไป</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-top">
+            <h3>Developer Intern <span class="muted">— Full-stack, 2 เดือนแรก</span></h3>
+            <div class="when">มิ.ย. – ก.ค. 2026</div>
+          </div>
+          <div class="org">BluePeak Innovation Co., Ltd.</div>
+          <ul>
+            <li><b>มีส่วนร่วมในการพัฒนา Full-stack</b> — ลงมือพัฒนาและปรับแก้ฟีเจอร์ขนาดเล็ก รวมถึงแก้ไขปัญหาตาม requirement ของระบบ (React + TypeScript, REST API)</li>
+            <li>อ่าน Prisma schema และโค้ดของระบบที่มีอยู่ให้เข้าใจโครงสร้างข้อมูลก่อนลงมือแก้ทุกครั้ง</li>
+            <li>ได้เห็นจากงานจริงว่า requirement ที่ไม่ชัดทำให้เสียเวลาตรงไหนบ้าง — <b>จุดที่ทำให้ได้ทำงานต่อในสายวิเคราะห์ระบบ</b></li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>ผลงานเด่น</h2>
+
+        <div class="work">
+          <h3>ระบบจัดซื้อ–คลัง เชื่อมระบบบัญชีภายนอก</h3>
+          <p>ทำ mapping รายฟิลด์ของเอกสาร 7 ประเภท เทียบของที่ระบบเรามีกับที่ปลายทางต้องการ แล้วรวบคำถามค้างส่งกลับเวนเดอร์ให้ชัดก่อน dev ลงมือ — ตัดงานแก้ย้อนหลังตั้งแต่ยังไม่เริ่ม</p>
+          <div class="tags">Requirement · Gap analysis · API spec</div>
+        </div>
+
+        <div class="work">
+          <h3>หน้าสรุปข้อมูลสำหรับผู้บริหาร</h3>
+          <p>ไล่ถามผู้ใช้ทีละคนว่าเอาตัวเลขไปตัดสินใจอะไร แล้วยุบตัวชี้วัดที่ซ้ำกันทิ้ง เหลือชุดที่น้อยกว่าที่ขอมาตอนแรกแต่ตอบคำถามได้ครบกว่า อ่านจบใน 5 วินาที</p>
+          <div class="tags">Stakeholder interview · Dashboard design · SQL</div>
+        </div>
+
+        <div class="work">
+          <h3>เทมเพลตเก็บ requirement ของทีม <span class="muted">— ริเริ่มเอง</span></h3>
+          <p>ออกแบบเทมเพลตที่แยกสิ่งที่ลูกค้ายืนยันแล้วออกจากสมมติฐานของเรา มีช่องผู้ตัดสินใจและวันที่ตกลง ใช้กับงานตัวเองก่อนแล้วค่อยขยายให้ทีม</p>
+          <div class="tags">Process design · Documentation</div>
+        </div>
+
+        <div class="work">
+          <h3>ระบบวางแผนและติดตามการผลิตในโรงงาน</h3>
+          <p>เก็บโจทย์จากหัวหน้าฝ่ายผลิตและคนคุมเครื่องหน้างาน แล้วออกแบบหน้าจอแผนการผลิตแบบไทม์ไลน์ พร้อมจุดบันทึกงานรายขั้นตอนและสรุปชั่วโมงทำงาน — สถานะงานทุกใบดูจบได้จากหน้าเดียว ไม่ต้องเดินไปถามทีละแผนก</p>
+          <div class="tags">Requirement · Process flow · UX/UI · Report spec</div>
+        </div>
+
+        <div class="work">
+          <h3>ออกแบบ flow อนุมัติเอกสารข้ามแผนก</h3>
+          <p>ไล่เคสจริงกับผู้ใช้ว่าถ้าเอกสารถูกแก้หลังอนุมัติไปแล้วต้องเกิดอะไรขึ้น ใครอนุมัติซ้ำ ย้อนกลับได้แค่ไหน แล้วเขียนออกมาเป็นกฎและสิทธิ์การเข้าถึงรายหน้าจอให้ทีม dev ทำตามได้โดยไม่ต้องตีความเอง</p>
+          <div class="tags">Business rules · Approval flow · Permission design</div>
+        </div>
+      </section>
+    </main>
+
+    <aside>
+      <div class="avail">
+        <b>กำลังหาที่ฝึกสหกิจศึกษา</b>
+        <div class="big">ม.ค.&nbsp;–&nbsp;เม.ย.&nbsp;2027</div>
+        <span>4 เดือนเต็ม · เต็มเวลา จันทร์–ศุกร์<br />วันเริ่มปรับได้ตามรอบของบริษัท</span>
+      </div>
+
+      <section>
+        <h2>การศึกษา</h2>
+        <div class="skill-block">
+          <h4>วิศวกรรมศาสตรบัณฑิต — วิศวกรรมคอมพิวเตอร์</h4>
+          <p>มหาวิทยาลัยธุรกิจบัณฑิตย์<br />
+          <b>ได้ทุนเรียนดีเต็มจำนวน 4 ปี</b> <span class="muted">(merit-based scholarship)</span></p>
+        </div>
+      </section>
+
+      <section>
+        <h2>ทักษะ</h2>
+
+        <div class="skill-block">
+          <h4>ส่งงานได้เอง</h4>
+          <p>เก็บ requirement · นำประชุมและพรีเซนต์กลุ่มใหญ่ · จดและสรุปประชุม · mockup &amp; wireframe (Figma) · แยก must-have ออกจาก nice-to-have · คุยกับผู้ใช้หน้างาน · pre-sales discovery</p>
+        </div>
+
+        <div class="skill-block">
+          <h4>ทำได้ ยังต้องเปิดเอกสารบ้าง</h4>
+          <p>spec &amp; acceptance criteria · user / process flow · demo และตอบคำถามเชิงเทคนิค · ประเมิน scope และความเป็นไปได้</p>
+        </div>
+
+        <div class="skill-block">
+          <h4>พื้นฐานเทคนิค</h4>
+          <p>JavaScript / TypeScript · React · HTML / CSS · Tailwind · REST API · SQL · Git<br />
+          <span class="muted">กำลังฝึก: Node.js · Docker · Testing</span></p>
+        </div>
+
+        <div class="skill-block">
+          <h4>ภาษา</h4>
+          <p>ไทย — ภาษาแม่<br />อังกฤษ — อ่านและเขียนใช้ทำงานได้ <span class="muted">ฝึกพูดทุกสัปดาห์</span></p>
+        </div>
+      </section>
+
+      <section>
+        <h2>วิธีทำงาน</h2>
+
+        <div class="belief">
+          <b>ล้มแล้วโตเร็วกว่าไม่ล้ม</b>
+          <span>พลาดแล้วจดไว้เป็นบทเรียน ไม่พลาดซ้ำที่เดิม</span>
+        </div>
+        <div class="belief">
+          <b>กล้าพูด กล้าถามกลางห้อง</b>
+          <span>ห้องยิ่งคนเยอะยิ่งต้องถามให้ชัดตรงนั้น ดีกว่าเก็บไปเดาเองทีหลัง</span>
+        </div>
+        <div class="belief">
+          <b>ไม่กลัวงาน</b>
+          <span>งานที่ไม่เคยทำคือของที่อยากลอง ไม่ใช่ของที่ต้องเลี่ยง</span>
+        </div>
+        <div class="belief">
+          <b>ปรับตัวไว</b>
+          <span>เปลี่ยนทีม เปลี่ยนโดเมนธุรกิจ เปลี่ยนเครื่องมือ — ตามได้</span>
+        </div>
+        <div class="belief">
+          <b>ไม่รับปากเกินที่ทีมทำไหว</b>
+          <span>เพราะเคยเขียนโค้ดเอง เลยประเมินได้ว่าอะไรทำได้จริงในเวลาเท่าไหร่</span>
+        </div>
+        <div class="belief">
+          <b>UX/UI คือเครื่องมือช่วย dev</b>
+          <span>mockup ที่ชัดกับเอกสารที่ครบ ทำให้ทีมไม่ต้องเดา งานเดินเร็วขึ้นทั้งสาย</span>
+        </div>
+      </section>
+    </aside>
+
+  </div>
+
+  <footer>
+    <span>กิตติธัช สกุลศักดิ์พินิจ — Business Analyst</span>
+    <span>Kittitouch.dev@gmail.com</span>
+  </footer>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">บันทึกเป็น PDF</button>
+
+</body>
+</html>
