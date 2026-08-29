@@ -1,40 +1,35 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
 import { Container } from './Container'
 import { LanguageToggle, ThemeToggle } from '@/components/ui/Toggles'
 import { useLang } from '@/hooks/useLang'
-import { useContent } from '@/hooks/useContent'
-import { ROUTES } from '@/constants/routes'
+import { useActiveSection } from '@/hooks/useActiveSection'
+import { useScrollProgress } from '@/hooks/useScrollProgress'
+import { CONTACT_ID, SECTIONS, SPY_IDS, TOP_ID } from '@/constants/sections'
+import { scrollToSection } from '@/utils/scroll'
 import { cn } from '@/utils/cn'
-import type { UiKey } from '@/constants/uiText'
 
-const navItems: { to: string; key: UiKey }[] = [
-  { to: ROUTES.ABOUT, key: 'nav.about' },
-  { to: ROUTES.SKILLS, key: 'nav.skills' },
-  { to: ROUTES.PROCESS, key: 'nav.process' },
-  { to: ROUTES.WORK, key: 'nav.work' },
-  { to: ROUTES.EXPERIENCE, key: 'nav.experience' },
-  { to: ROUTES.LEARNING, key: 'nav.learning' },
-]
-
+/**
+ * แถบบนติดหนึบอยู่กับจอตลอดการเลื่อน
+ * กดเมนู = เลื่อนไปหาหัวข้อนั้นในหน้าเดียวกัน ไม่ได้เปลี่ยนหน้า
+ *
+ * หมายเหตุ: กล่องหน้ากระดาษที่ครอบอยู่ต้องเป็น overflow-clip ไม่ใช่ overflow-hidden
+ * ไม่งั้น sticky จะตายทั้งแถบ (ดู MainLayout)
+ */
 export function Navbar() {
   const { tr } = useLang()
-  const { profile } = useContent()
   const [open, setOpen] = useState(false)
-  const [solid, setSolid] = useState(false)
-  const { pathname } = useLocation()
-
-  // เปลี่ยนหน้าแล้วเมนูมือถือต้องปิดเอง ไม่ใช่ค้างบังหน้าใหม่
-  useEffect(() => setOpen(false), [pathname])
+  const [lifted, setLifted] = useState(false)
+  const active = useActiveSection(SPY_IDS)
+  const progress = useScrollProgress()
 
   useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 24)
+    const onScroll = () => setLifted(window.scrollY > 12)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // ปิดเมนูมือถือเมื่อจอกว้างขึ้น จะได้ไม่ค้าง
+  // จอกว้างขึ้นแล้วเมนูมือถือต้องไม่ค้างเปิดอยู่
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)')
     const onChange = () => mq.matches && setOpen(false)
@@ -42,30 +37,42 @@ export function Navbar() {
     return () => mq.removeEventListener('change', onChange)
   }, [])
 
+  const go = (id: string) => {
+    setOpen(false)
+    scrollToSection(id)
+  }
+
   return (
     <header
-      className="sticky top-0 z-50 transition-colors duration-300"
-      style={solid ? { background: 'var(--page)' } : undefined}
+      className={cn(
+        'sticky top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300',
+        lifted && 'shadow-[0_1px_0_var(--line)] backdrop-blur-md',
+      )}
+      style={lifted ? { background: 'color-mix(in srgb, var(--page) 82%, transparent)' } : undefined}
     >
       <Container className="flex h-20 items-center gap-6">
-        <Link to={ROUTES.HOME} className="display flex items-baseline gap-1 text-xl">
+        <button
+          type="button"
+          onClick={() => go(TOP_ID)}
+          className="display flex items-baseline gap-1 text-xl"
+        >
           {tr('brand.short')}
           <span aria-hidden="true" className="text-accent">
             .
           </span>
-        </Link>
+        </button>
 
         <nav className="ml-auto hidden items-center gap-1 text-[14px] font-medium lg:flex">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                cn('nav-link', isActive && 'nav-link-active')
-              }
+          {SECTIONS.map((section) => (
+            <button
+              key={section.id}
+              type="button"
+              onClick={() => go(section.id)}
+              aria-current={active === section.id ? 'true' : undefined}
+              className={cn('nav-link', active === section.id && 'nav-link-active')}
             >
-              {tr(item.key)}
-            </NavLink>
+              {tr(section.key)}
+            </button>
           ))}
         </nav>
 
@@ -73,12 +80,13 @@ export function Navbar() {
           <LanguageToggle className="hidden sm:flex" />
           <ThemeToggle />
 
-          <Link
-            to={ROUTES.CONTACT}
+          <button
+            type="button"
+            onClick={() => go(CONTACT_ID)}
             className="pill pill-solid pill-sm hidden font-medium sm:inline-flex"
           >
-            {profile.email}
-          </Link>
+            {tr('nav.contact')}
+          </button>
 
           <button
             type="button"
@@ -92,37 +100,37 @@ export function Navbar() {
         </div>
       </Container>
 
+      {/* เส้นบอกว่าอ่านไปถึงไหนแล้ว วางชิดขอบล่างของแถบ */}
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px">
+        <div
+          className="h-full origin-left bg-accent transition-transform duration-150 ease-out"
+          style={{ transform: `scaleX(${progress})` }}
+        />
+      </div>
+
       {open && (
         <div style={{ background: 'var(--page)' }} className="border-t border-line lg:hidden">
           <Container className="flex flex-col py-3">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) =>
-                  cn(
-                    'display flex items-center justify-between border-b border-line px-3 py-3 text-2xl last:border-0',
-                    isActive && 'nav-link-active rounded-xl border-transparent',
-                  )
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    {tr(item.key)}
-                    {isActive && (
-                      <span aria-hidden="true" className="text-sm">
-                        ●
-                      </span>
-                    )}
-                  </>
+            {[...SECTIONS, { id: CONTACT_ID, key: 'nav.contact' as const }].map((section) => (
+              <button
+                key={section.id}
+                type="button"
+                onClick={() => go(section.id)}
+                className={cn(
+                  'display flex items-center justify-between border-b border-line px-3 py-3 text-left text-2xl last:border-0',
+                  active === section.id && 'nav-link-active rounded-xl border-transparent',
                 )}
-              </NavLink>
+              >
+                {tr(section.key)}
+                {active === section.id && (
+                  <span aria-hidden="true" className="text-sm">
+                    ●
+                  </span>
+                )}
+              </button>
             ))}
             <div className="flex items-center gap-5 pt-4">
               <LanguageToggle className="sm:hidden" />
-              <Link to={ROUTES.CONTACT} className="pill pill-solid pill-sm">
-                {tr('nav.contact')}
-              </Link>
             </div>
           </Container>
         </div>

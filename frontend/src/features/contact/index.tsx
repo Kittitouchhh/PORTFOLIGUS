@@ -53,6 +53,13 @@ export function Contact() {
             {copied ? tr('contact.copied') : tr('contact.copy')}
           </button>
 
+          <a
+            href={`tel:${profile.phone.replace(/[^+\d]/g, '')}`}
+            className="link-wipe mt-6 block text-[15px] font-medium"
+          >
+            {profile.phone}
+          </a>
+
           <ul className="mt-10">
             {profile.links.map((link) =>
               link.href === '#' ? null : (

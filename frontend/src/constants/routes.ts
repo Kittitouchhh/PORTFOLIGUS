@@ -1,13 +1,9 @@
-/** path ของทุกหน้า รวมไว้ที่เดียว navbar กับ router อ้างชุดเดียวกัน */
+/**
+ * ทั้งเว็บเหลือหน้าเดียวแล้ว — หัวข้อต่าง ๆ อยู่ที่ constants/sections.ts
+ * ที่นี่เก็บไว้แค่ path จริงที่ router รู้จัก
+ */
 export const ROUTES = {
   HOME: '/',
-  ABOUT: '/about',
-  SKILLS: '/skills',
-  PROCESS: '/process',
-  WORK: '/work',
-  EXPERIENCE: '/experience',
-  LEARNING: '/learning',
-  CONTACT: '/contact',
 } as const
 
 export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES]

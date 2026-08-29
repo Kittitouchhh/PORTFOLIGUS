@@ -12,6 +12,8 @@ export type Project = {
   contributions: L[]
   outcome: L[]
   stack: string[]
+  /** คำเรียกผลลัพธ์แบบที่คนในวงการใช้ — ขึ้นเป็นป้ายใหญ่เหนือหัวข้อ */
+  tags?: string[]
   /** ชนิดของ mockup ที่จะวาดประกอบ (ดู components/ui/MockupFrame.tsx) */
   mockup: 'dashboard' | 'form' | 'table' | 'flow'
   href?: string
@@ -25,9 +27,34 @@ export type Project = {
  */
 export const projects: Project[] = [
   {
+    id: 'procurement-erp',
+    confidential: true,
+    title: l('ERP จัดซื้อและคลังสินค้าระดับองค์กร', 'Procurement & inventory ERP'),
+    context: l('งานบริษัท — ลูกค้าองค์กรรายเดียว', 'Company work — one enterprise client'),
+    role: l('Business Analyst — เจ้าของงานวิเคราะห์ทั้งชุด', 'Business analyst — owned the analysis end to end'),
+    problem: l(
+      'ลูกค้าใช้ระบบเดิมคู่กับเอกสารกระดาษหลายชนิดในสายงานจัดซื้อและคลัง แต่ละใบมีฟิลด์ที่ตีความกันคนละแบบ และไม่มีใครตอบได้ว่าของที่ระบบใหม่ต้องรองรับมีอะไรบ้าง จนกว่าจะไล่เทียบทีละใบ',
+      'The client ran their procurement and inventory work on an older system alongside several paper documents, each with fields different people read differently. Nobody could say what the new system had to cover until someone went through them one by one.',
+    ),
+    contributions: [
+      l('วิเคราะห์กระบวนการจัดซื้อและคลังของลูกค้าทั้งสาย ตั้งแต่ขอซื้อจนรับของเข้าคลัง', 'Analysed the client’s full procurement and inventory process, from purchase request through goods receipt.'),
+      l('ทำ Gap Analysis เทียบของเดิมกับสิ่งที่ระบบใหม่ต้องทำได้ พร้อม mapping ระดับฟิลด์ข้ามเอกสาร 7 ประเภท', 'Ran a gap analysis between the old way and what the new system must do, with field-level mapping across seven document types.'),
+      l('เขียน Specification และ API Spec ให้ทีมพัฒนาและผู้ขายอ่านชุดเดียวกัน', 'Wrote the specification and API specs so the dev team and the vendor read from one source.'),
+      l('ออกแบบสายอนุมัติและสิทธิ์การเข้าถึง ว่าใครเห็นอะไรและใครเป็นคนเคาะในแต่ละขั้น', 'Designed the approval flow and permission model — who sees what, and who signs off at each step.'),
+      l('รวบรวมประเด็นค้างทั้งหมดส่งให้ผู้ขายยืนยันก่อน kickoff ไม่ปล่อยให้ค้างไปโผล่กลางทาง', 'Consolidated every open issue for vendor confirmation before kickoff, rather than letting them surface mid-build.'),
+    ],
+    outcome: [
+      l('เข้าสู่ kickoff โดยที่ขอบเขตงานถูกเคาะแล้วเป็นลายลักษณ์อักษร ไม่ใช่ความเข้าใจที่ต่างคนต่างจำ', 'Went into kickoff with the scope agreed in writing, not as something each side remembered differently.'),
+      l('ทีมพัฒนาและผู้ขายทำงานจากเอกสารชุดเดียวกันตั้งแต่วันแรก', 'The dev team and the vendor worked from the same document set from day one.'),
+    ],
+    stack: ['Gap analysis', 'API specification', 'Approval flow', 'Permission design'],
+    tags: ['Requirement Analysis', 'Solution Design', 'Vendor Alignment'],
+    mockup: 'form',
+  },
+  {
     id: 'production-tracking',
     confidential: true,
-    title: l('หน้าติดตามงานผลิตที่มาแทนใบสั่งงานกระดาษ', 'Production tracking that replaced paper job sheets'),
+    title: l('เปลี่ยนใบสั่งงานกระดาษให้เป็น digital workflow', 'Turning paper job sheets into a digital workflow'),
     context: l('งานบริษัท — โรงงานผลิตของลูกค้าองค์กร', 'Company work — an enterprise client’s factory'),
     role: l('Business Analyst — เก็บโจทย์ ออกแบบ ทำ mockup', 'Business analyst — discovery, design, mockups'),
     problem: l(
@@ -46,12 +73,13 @@ export const projects: Project[] = [
       l('หน้าตาและตรรกะชุดนี้ถูกยกไปใช้ซ้ำในหน้าอื่นของระบบ กลายเป็นแบบมาตรฐานของทีม', 'The same layout and logic were reused on other screens and became the team’s house pattern.'),
     ],
     stack: ['Requirement discovery', 'Process mapping', 'HTML mockup', 'Acceptance criteria'],
+    tags: ['Process Improvement', 'Digital Workflow', 'Operational Efficiency'],
     mockup: 'table',
   },
   {
     id: 'ops-report',
     confidential: true,
-    title: l('รายงานติดตามงานที่มาแทน Excel กรอกมือ', 'An operations report that replaced hand-kept spreadsheets'),
+    title: l('สร้าง Single Source of Truth ให้งานปฏิบัติการ', 'Creating a single source of truth for operations'),
     context: l('งานบริษัท — ทีมปฏิบัติการของลูกค้าองค์กร', 'Company work — an enterprise client’s operations team'),
     role: l('Business Analyst — เจ้าของเอกสารทั้งชุด', 'Business analyst — owned the full document set'),
     problem: l(
@@ -71,12 +99,13 @@ export const projects: Project[] = [
       l('การตัดสินใจที่เคยอยู่แค่ในหัวคนกลายเป็นของที่คนใหม่เข้ามาอ่านเองได้', 'Decisions that used to live in someone’s head became something a newcomer could read.'),
     ],
     stack: ['Gap analysis', 'Decision log', 'Test plan', 'Traceability', 'Acceptance checklist'],
+    tags: ['Single Source of Truth', 'Data Consistency', 'Documentation Standard'],
     mockup: 'dashboard',
   },
   {
     id: 'client-share-link',
     confidential: true,
-    title: l('ลิงก์ให้ลูกค้าดูสถานะงานโดยไม่ต้องมีบัญชี', 'A public link so clients can check status without an account'),
+    title: l('Customer Self-Service — ให้ลูกค้าเช็กสถานะเองได้', 'Customer self-service status tracking'),
     context: l('งานบริษัท — ใช้ระหว่างฝ่ายขายกับลูกค้า', 'Company work — between the sales team and their clients'),
     role: l('Business Analyst — ออกแบบ flow และขอบเขตข้อมูล', 'Business analyst — flow and data-scope design'),
     problem: l(
@@ -93,12 +122,13 @@ export const projects: Project[] = [
       l('ขอบเขตข้อมูลถูกตกลงเป็นลายลักษณ์อักษรก่อนเขียนโค้ด ไม่ใช่มาเถียงกันตอนหลุด', 'The data boundary was agreed in writing before any code, rather than argued about after a leak.'),
     ],
     stack: ['Data scoping', 'User flow', 'Stakeholder alignment'],
+    tags: ['Customer Self-Service', 'Data Scoping', 'Access Control'],
     mockup: 'flow',
   },
   {
     id: 'approval-flow',
     confidential: true,
-    title: l('ระบบอนุมัติงานตัวอย่างออนไลน์', 'An online sample-approval workflow'),
+    title: l('Workflow & Risk Design ของสายอนุมัติงานตัวอย่าง', 'Workflow & risk design for sample approvals'),
     context: l('งานบริษัท — เชื่อมฝ่ายขาย ปฏิบัติการ QC และลูกค้า', 'Company work — connecting sales, operations, QC, and the client'),
     role: l('Business Analyst — วาง flow และกติกาความปลอดภัย', 'Business analyst — flow and safeguards'),
     problem: l(
@@ -116,6 +146,7 @@ export const projects: Project[] = [
       l('ลูกค้าเห็นชัดว่าอะไรคือรูปจริง อะไรคือภาพจำลอง', 'Clients can tell at a glance which images are real and which are simulated.'),
     ],
     stack: ['Process design', 'Cross-team alignment', 'Risk & safeguards', 'HTML mockup'],
+    tags: ['Workflow Design', 'Governance & Risk', 'AI Content Labelling'],
     mockup: 'form',
   },
   {
@@ -139,6 +170,7 @@ export const projects: Project[] = [
       l('เวลาลูกค้าเปลี่ยนใจ ย้อนกลับไปดูได้ว่าเคยตกลงอะไรไว้', 'When a client changes their mind, we can point back to what was agreed.'),
     ],
     stack: ['Documentation', 'Process design', 'HTML mockup'],
+    tags: ['Development Alignment', 'Specification Standard'],
     mockup: 'flow',
   },
   {
@@ -161,6 +193,7 @@ export const projects: Project[] = [
       l('โค้ดเปิดดูได้บน GitHub', 'The source is public on GitHub.'),
     ],
     stack: ['React 19', 'TypeScript', 'Tailwind CSS v4', 'Vite'],
+    tags: ['Technical Architecture', 'Data-driven UI'],
     mockup: 'form',
     href: 'https://github.com/Kittitouchhh',
   },

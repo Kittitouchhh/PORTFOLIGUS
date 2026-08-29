@@ -42,6 +42,20 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <Badge tone="dashed">{t(project.context)}</Badge>
             {project.confidential && <Badge>{tr('work.confidential')}</Badge>}
           </div>
+          {/* ป้ายนี้คือคำที่คนอ่านสแกนหา วางเหนือหัวข้อเพราะมันบอกชนิดของงานได้เร็วกว่าชื่อเคส */}
+          {project.tags && (
+            <ul className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1">
+              {project.tags.map((tag, tagIndex) => (
+                <li key={tag} className="eyebrow flex items-center gap-3 text-accent">
+                  {tagIndex > 0 && (
+                    <span aria-hidden="true" className="size-1 rounded-full bg-line" />
+                  )}
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          )}
+
           <h3 className="display text-[clamp(1.75rem,4vw,2.75rem)]">{t(project.title)}</h3>
         </div>
 

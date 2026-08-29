@@ -7,45 +7,69 @@ import { l } from '../types'
 export const profile = {
   name: l('กิตติธัช', 'Kittitouch'),
   fullName: l('กิตติธัช สกุลศักดิ์พินิจ', 'Kittitouch Sakulsakpinit'),
+
+  /** ชื่อเล่น — ขึ้นเป็นบรรทัดเล็กใต้ชื่อเต็มในหัวข้อแนะนำตัว */
+  nickname: l('กัส', 'Gus'),
   role: l(
-    'Business Analyst / Business Development / Tech Sales',
-    'Business Analyst / Business Development / Tech Sales',
+    'Business Analyst · Technology Solutions · Pre-Sales',
+    'Business Analyst · Technology Solutions · Pre-Sales',
   ),
+
+  /** ย่อหน้าเดียวจบแบบเรซูเม่ — ใช้ตอนคนอ่านมีเวลาสิบวินาที */
+  summary: l(
+    'นักศึกษาวิศวกรรมคอมพิวเตอร์ชั้นปีที่ 4 ที่ทำงานเป็น Business Analyst ไปด้วยระหว่างเรียน ดูแลงานลูกค้าตั้งแต่นั่งฟังปัญหา เก็บ requirement วิเคราะห์กระบวนการ ไปจนถึงออกแบบโซลูชัน ทำ mockup และเขียน spec ให้ทีมพัฒนาหยิบไปทำต่อได้ ตอนนี้อยู่กับงาน ERP ระดับองค์กร ได้เข้าพบเจ้าของกิจการและผู้บริหารเอง นำเสนอระบบให้ลูกค้า และมีส่วนในการปิดโครงการ พื้นฐานการเขียนโค้ดช่วยให้ประเมินได้ตามจริงว่าอะไรทำได้ ใช้เวลาประมาณเท่าไหร่ และไม่รับปากลูกค้าเกินกว่าที่ทีมทำไหว',
+    'A fourth-year computer engineering student working as a business analyst alongside my degree. I take client work from sitting down and listening, through requirement gathering and process analysis, to solution design, mockups, and specs the development team can build from. Right now that means enterprise ERP work — meeting client owners and executives directly, presenting the system, and playing a part in closing the project. A coding background keeps my estimates honest about what is buildable and how long it takes, so I never promise more than the team can deliver.',
+  ),
+  /**
+   * คติประจำใจ — ประโยคเปิดใต้พาดหัว อ่านจบในลมหายใจเดียวและต้องจำได้
+   * ท่อนหน้าคือฝั่งธุรกิจ ท่อนหลังคือฝั่งเทคโนโลยี ตัวประโยคเองทำหน้าที่เชื่อมสองฝั่ง
+   */
   tagline: l(
-    'ฟังให้ออกว่าลูกค้าต้องการอะไรจริง ๆ เขียนเป็นเอกสารและ mockup ที่ทีม dev ทำต่อได้ทันที',
-    'I listen for what a client actually needs, then turn it into specs and mockups a dev team can build from directly.',
+    'เชื่อมความต้องการของธุรกิจ เข้ากับโซลูชันทางเทคโนโลยี',
+    'Connecting business needs with technology solutions.',
   ),
+  /**
+   * สามย่อหน้าในหัวข้อ "เกี่ยวกับผม" — เขียนด้วยน้ำเสียงที่เจ้าตัวใช้แนะนำตัวเองจริง ๆ
+   * ลำดับ: ผมเป็นใคร → ผมชอบอะไรและถนัดอะไร → แล้วต่อจากนี้จะไปทางไหน
+   * ห้ามเกลาจนเป็นภาษาโบรชัวร์ ความเป็นคนพูดคือของที่คนอ่านจำได้
+   */
   intro: l(
-    'ผมทำงานสายวิเคราะห์ธุรกิจในบริษัทที่ทำระบบให้ลูกค้าองค์กร งานประจำวันของผมคือนั่งคุยกับลูกค้าเพื่อดึงความต้องการออกมา เขียนเป็น requirement และ spec ให้ทีมเข้าใจตรงกัน ทำ mockup ให้ลูกค้าเคาะก่อนเริ่มพัฒนา แล้วตามต่อจนระบบส่งมอบได้จริง',
-    'I work as a business analyst at a company that builds systems for enterprise clients. My day is sitting with clients to pull out what they actually need, writing it up as requirements and specs the team reads the same way, mocking it up for sign-off before development starts, and staying on it until the system ships.',
+    'สวัสดีครับ ผมกิตติธัช สกุลศักดิ์พินิจ เรียกผมสั้น ๆ ว่ากัสก็ได้ครับ ตอนนี้เป็นนักศึกษาคณะวิศวกรรมศาสตร์ สาขาวิศวกรรมคอมพิวเตอร์ มหาวิทยาลัยธุรกิจบัณฑิตย์ ชั้นปีที่ 4 เริ่มจากได้รับมอบหมายให้ฝึกงาน 2 เดือนช่วงมิถุนายนถึงกรกฎาคม แล้วได้ทำงานต่อระหว่างเรียนในตำแหน่ง Business Analyst',
+    'Hello — I am Kittitouch Sakulsakpinit, and Gus is fine. I am a fourth-year computer engineering student in the Faculty of Engineering at Dhurakij Pundit University. I started with a two-month internship over June and July, and have carried on since as a business analyst alongside my classes.',
   ),
   introSecondary: l(
-    'สิ่งที่ผมถนัดคือการเป็นตัวกลางระหว่าง “สิ่งที่ลูกค้าพูด” กับ “สิ่งที่ระบบต้องทำ” ผมชอบถามจนกว่าจะเข้าใจว่าธุรกิจเขาได้อะไร ไม่ใช่แค่รับโจทย์มาส่งต่อ และเพราะมีพื้นฐานสาย dev อยู่ ผมเลยเขียน spec กับทำ mockup ที่ทีมพัฒนาหยิบไปทำต่อได้ทันที และประเมินได้ว่าอะไรทำได้จริงในเวลาเท่าไหร่ ไม่รับปากลูกค้าเกินกว่าที่ทีมทำไหว',
-    'What I am good at is standing between what a client says and what the system must do. I keep asking until I understand what the business gets out of it, rather than passing a feature list along. And because I have a developer’s grounding, the specs and mockups I hand over are ones the team can build from directly — and I can tell what is realistic in the time we have, so I never promise a client more than the team can deliver.',
+    'ผมชอบที่ได้พูดคุยกับผู้คน ชอบรับฟังปัญหา และชอบช่วยคิดหาวิธีแก้ให้ทั้งลูกค้าและคนในองค์กรเอง และเพราะพอมีความรู้ด้านการเขียนโค้ดอยู่บ้าง ผมเลยรู้ขอบเขตของระบบว่าแต่ละฟีเจอร์ที่ลูกค้าต้องการนั้นทำได้หรือไม่ได้ ต้องใช้เวลาประมาณเท่าไหร่ ทำให้ผมคุยเป็นภาษาเดียวกันได้ทั้งกับ Dev และกับลูกค้า แล้วพาสองฝั่งมาเข้าใจตรงกัน',
+    'What I enjoy is talking to people, listening to the problem, and helping work out the fix — for clients and for the people inside the company alike. And because I can write code well enough to know where a system’s edges are, I can tell whether a feature a client asks for is buildable and roughly how long it takes. That is what lets me speak the same language as the developers and the client, and bring both sides to the same understanding.',
   ),
   introMotivation: l(
-    'ที่ทำงานสายนี้เพราะชอบแก้ปัญหาและชอบสร้างอะไรที่คนได้ใช้จริง ความรู้สึกตอนเห็นคนหน้างานทำงานเร็วขึ้นเพราะระบบที่เราช่วยออกแบบ คือเหตุผลที่ยังสนุกกับงานนี้อยู่ ตอนนี้กำลังมองหาที่ที่ทำงานเป็นระบบและละเอียดกว่านี้ เพื่อจะได้เรียนรู้วิธีทำงานที่เป็นแบบแผนจริง ๆ',
-    'I am in this line of work because I like solving problems and building things people actually use. Watching someone on the floor get their work done faster because of a system I helped shape is the part that keeps this interesting. What I am looking for now is somewhere more structured and more rigorous, so I can learn how this work is done to a real standard.',
+    'ต่อจากนี้ผมหวังว่าจะได้เก็บประสบการณ์อีกมากมาย ถึงมันจะยาก แต่ผมก็จะพยายามครับ :)',
+    'From here, I hope to pick up a great deal more experience. I know it gets hard — I will keep at it. :)',
   ),
   location: l('กรุงเทพฯ ประเทศไทย', 'Bangkok, Thailand'),
   basedIn: l('อยู่ที่กรุงเทพฯ ประเทศไทย', 'Based in Bangkok, Thailand.'),
 
   /**
    * พาดหัวหน้าแรก — บรรทัดคี่ (ที่ 2, 4, …) จะแสดงเป็นตัวกลวงสลับกันไป
-   * เขียนให้สั้น บรรทัดละคำสองคำ ยิ่งเพิ่มบรรทัดตัวยิ่งเล็กลง เกิน 6 บรรทัดแล้วจะเริ่มไม่มีพลัง
+   * ตั้งใจให้มีแค่สองบรรทัด ตำแหน่งที่เหลือไปอยู่ที่ roles ด้านล่างแทน
+   * พาดหัวยาวเกินสองบรรทัดเมื่อไหร่ มันจะกลายเป็นรายการตำแหน่ง ไม่ใช่พาดหัวอีกต่อไป
    */
   headline: {
-    lead: l('สวัสดีครับ ผมชื่อกิตติธัช ผมเป็น', 'Hi, my name is Kittitouch and I am a'),
     lines: [
       l('นักวิเคราะห์ธุรกิจ', 'Business Analyst'),
-      l('& นักออกแบบ', '& Designer'),
       l('& นักแก้ปัญหา', '& Problem Solver'),
-      l('& พยายามเข้าใจธุรกิจ', '& Business Curious'),
-      l('& คนปิดการขาย', '& Deal Closer'),
     ],
   },
+
+  /** ตำแหน่งที่เหลือ — วางเป็นบรรทัดเล็กใต้พาดหัว ไม่เอาขึ้นตัวใหญ่ */
+  roles: [
+    l('Business Development', 'Business Development'),
+    l('Tech Sales', 'Tech Sales'),
+    l('เก็บ Requirement', 'Requirements'),
+  ],
+
   availability: l('เปิดรับโอกาสใหม่', 'Open to opportunities'),
   email: 'Kittitouch.dev@gmail.com',
+  phone: '+66 81-399-6955',
 
   // TODO: ใส่ลิงก์จริงของตัวเอง แล้วลบอันที่ไม่มี
   links: [

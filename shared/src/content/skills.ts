@@ -63,10 +63,10 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     id: 'sales',
-    title: l('งานขายเชิงเทคนิค', 'Technical sales'),
+    title: l('โซลูชันและงานก่อนการขาย', 'Solution & pre-sales'),
     desc: l(
-      'ฝั่งที่ต้องอธิบายของยากให้คนตัดสินใจฟังแล้วเข้าใจ',
-      'The side where hard things have to make sense to the person signing off.',
+      'เชื่อม business problem เข้ากับ solution ที่อธิบายได้ทั้งกับลูกค้าและทีมเทคนิค',
+      'Connecting a business problem to a solution that holds up in front of both the client and the technical team.',
     ),
     skills: [
       {
@@ -110,6 +110,35 @@ export const skillGroups: SkillGroup[] = [
       { name: 'Node.js', level: 'learning' },
       { name: 'Docker', level: 'learning' },
       { name: 'Testing (unit / e2e)', level: 'learning' },
+    ],
+  },
+  {
+    id: 'methods',
+    title: l('เครื่องมือและวิธีทำงาน', 'Tools & methods'),
+    desc: l(
+      'คำเรียกที่ใช้กันจริงในสายงาน — ใส่ไว้เฉพาะอันที่หยิบมาใช้กับงานจริงแล้ว',
+      'The vocabulary this job actually runs on — listed only where I have used it on real work.',
+    ),
+    skills: [
+      { name: 'Requirement Gathering', level: 'core' },
+      { name: 'Process Mapping', level: 'core' },
+      { name: 'Gap Analysis', level: 'core' },
+      { name: 'User Story / Acceptance Criteria', level: 'core' },
+      { name: 'Specification / API Spec', level: 'core' },
+      { name: 'Solution Design', level: 'working' },
+      { name: 'Stakeholder Management', level: 'working' },
+      { name: 'Decision & Risk Log', level: 'working' },
+      { name: 'Traceability', level: 'working' },
+      { name: 'UAT / Test Planning', level: 'working' },
+      { name: 'Permission & Access Design', level: 'working' },
+      {
+        name: 'Technical Feasibility',
+        level: 'working',
+        note: l('ประเมินจากพื้นฐานที่เคยเขียนโค้ดเอง', 'Judged from having written the code myself'),
+      },
+      { name: 'Figma', level: 'core' },
+      { name: 'Miro', level: 'working' },
+      { name: 'Git / GitHub', level: 'working' },
     ],
   },
   {

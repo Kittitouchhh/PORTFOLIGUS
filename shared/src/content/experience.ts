@@ -20,13 +20,21 @@ export type TimelineItem = {
 export const timeline: TimelineItem[] = [
   {
     id: 'current',
-    period: l('มิ.ย. 2569 – ปัจจุบัน', 'Jun 2026 – present'),
-    role: l('Business Analyst — เริ่มจากฝึกงาน', 'Business Analyst — started as an intern'),
-    org: l('Bluepeak Innovations', 'Bluepeak Innovations'),
+    /** ฝึกงาน 2 เดือน (มิ.ย. – ก.ค. 2569) แล้วทำงานต่อระหว่างเรียนมาจนถึงตอนนี้ */
+    period: l('มิ.ย. 2569 – ปัจจุบัน', 'June 2026 – present'),
+    role: l(
+      'Business Analyst — เริ่มจากฝึกงานตำแหน่ง Full-stack Developer',
+      'Business Analyst — started as a full-stack developer intern',
+    ),
+    org: l('BluePeak Innovation Co., Ltd.', 'BluePeak Innovation Co., Ltd.'),
     orgColor: '#00E5FF',
     current: true,
     points: [
-      l('เริ่มจากฝึกงานเดือน มิ.ย.–ก.ค. 2569 แล้วได้ทำงานต่อจนถึงปัจจุบัน', 'Started as an intern in June–July 2026, then stayed on and have been here since.'),
+      l('เข้ามาฝึกงาน 2 เดือน (มิ.ย. – ก.ค.) เดือนแรกอยู่สาย Full-stack Developer แล้วย้ายมาสาย Business Analysis และ Solution Design ตั้งแต่นั้น จบฝึกงานแล้วได้ทำงานต่อระหว่างเรียน', 'A two-month internship (June to July): the first month as a full-stack developer, then a move into business analysis and solution design that has stuck. I stayed on after the internship, working alongside my classes.'),
+      l('รับผิดชอบงาน ERP ระดับองค์กร เข้าพบเจ้าของกิจการและผู้บริหารของลูกค้าเอง', 'Responsible for enterprise ERP work, meeting client owners and executives directly.'),
+      l('จัด workshop เก็บ requirement กับพนักงานโรงงานกว่า 30 คน และฝ่ายขายอีกกว่า 20 คน เป็นคนนำวงคุยและถามย้ำจนความต้องการชัด', 'Facilitated requirements workshops with 30+ factory employees and 20+ sales staff, leading the discussion and probing until the requirements were clear.'),
+      l('ทำ Gap Analysis และ mapping ระดับฟิลด์ข้ามเอกสาร 7 ประเภท ก่อนสรุปประเด็นค้างให้ผู้ขายยืนยันก่อน kickoff', 'Ran gap analysis and field-level mapping across seven document types, consolidating open issues for vendor confirmation before kickoff.'),
+      l('เขียน User Story, Acceptance Criteria และ Decision / Assumption / Risk Log แยกให้ชัดว่าอะไรลูกค้ายืนยันแล้ว อะไรคือสมมติฐานของเราเอง', 'Wrote user stories, acceptance criteria, and decision / assumption / risk logs that separate what the client confirmed from what we assumed.'),
       l('เก็บ requirement เองทุกงาน ทั้งฝั่งผู้บริหารและคนหน้างาน แล้วสรุปกลับให้ทีมเข้าใจตรงกัน', 'Run every requirement session myself, with both management and frontline staff, then write them back so the team reads them the same way.'),
       l('เป็นคนแรกในทีมที่เริ่มทำ spec และ mockup ส่งให้ dev จากเดิมที่ทีมไม่มีเอกสารกลาง', 'First on the team to start handing developers written specs and mockups, where before there was no shared document at all.'),
       l('เขียนเอกสาร spec ฟีเจอร์ เอกสาร API และ acceptance criteria กว่า 90 ชิ้น', 'Wrote 90+ feature specs, API documents, and acceptance criteria.'),

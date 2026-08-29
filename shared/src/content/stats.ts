@@ -12,45 +12,67 @@ export type Stat = {
 /**
  * ตัวเลข "ปัดโดยประมาณ" — เล่าปริมาณงานได้โดยไม่หลุดข้อมูลลูกค้า
  * ไม่ระบุชื่อบริษัทลูกค้า บอกแค่ขนาดธุรกิจพอให้เห็นสเกล
+ *
+ * กติกา: ทุกตัวเลขในนี้ต้องตอบได้ว่านับจากอะไร ถ้าตอบไม่ได้ให้ตัดทิ้ง
+ * ไม่ใช่ใส่ไว้ให้ดูเยอะ แล้วไปจนมุมตอนถูกถามในห้องสัมภาษณ์
  */
 export const stats: Stat[] = [
   {
     id: 'scale',
     value: '100',
     suffix: l('ล้านบาท/ปี', 'M THB/yr'),
-    label: l('ขนาดธุรกิจของลูกค้าที่ระบบรองรับ', 'Revenue scale the system runs on'),
+    label: l('ขนาดธุรกิจที่ระบบรองรับ', 'Revenue scale the system runs on'),
     detail: l(
       'ระบบหลักที่ใช้เดินงานทั้งองค์กร ไม่ใช่เครื่องมือเสริมของแผนกใดแผนกหนึ่ง',
       'A core system running the whole operation, not a side tool for one department.',
     ),
   },
   {
-    id: 'ramp',
-    value: '3',
-    suffix: l('เดือน', 'months'),
-    label: l('จากฝึกงานจนรับงาน BA เองทั้งหมด', 'From intern to owning the BA work'),
+    id: 'docs',
+    value: '90+',
+    label: l('เอกสารและ specification ของโครงการ', 'Project documents & specifications'),
     detail: l(
-      'เริ่มจากฝึกงานเดือนมิถุนายน 2569 ยังไม่ถึงปี แต่รับผิดชอบ requirement เอกสาร และ mockup เองทั้งหมด',
-      'Started as an intern in June 2026. Less than a year in, and already owning requirements, documentation, and mockups end to end.',
+      'requirement, spec ฟีเจอร์, API spec, acceptance criteria และ decision log ที่ทีมพัฒนาใช้ทำงานจริง',
+      'Requirements, feature specs, API specs, acceptance criteria, and decision logs the dev team builds from.',
     ),
   },
   {
-    id: 'docs',
-    value: '90+',
-    label: l('เอกสาร spec ที่เขียนเอง', 'Specs written myself'),
+    id: 'stakeholders',
+    value: '50+',
+    suffix: l('คน', 'people'),
+    label: l('ผู้เกี่ยวข้องที่นั่งเก็บ requirement ด้วยตัวเอง', 'Stakeholders interviewed first-hand'),
     detail: l(
-      'requirement, spec ฟีเจอร์, เอกสาร API และ acceptance checklist ที่ทีมพัฒนาใช้ทำงานจริง',
-      'Requirements, feature specs, API docs, and acceptance checklists the dev team builds from.',
+      'พนักงานโรงงานกว่า 30 คนและฝ่ายขายอีกกว่า 20 คน ตั้งแต่เจ้าของกิจการจนถึงคนหน้างาน',
+      '30+ factory employees and 20+ sales staff — from company owners down to the people on the floor.',
+    ),
+  },
+  {
+    id: 'mapping',
+    value: '7',
+    suffix: l('ประเภทเอกสาร', 'document types'),
+    label: l('Gap analysis และ mapping ระดับฟิลด์', 'Gap analysis & field-level mapping'),
+    detail: l(
+      'ไล่เทียบทีละฟิลด์ว่าของเดิมมีอะไร ระบบใหม่ต้องรับอะไร แล้วอะไรคือช่องว่างที่ต้องตัดสินใจ',
+      'Field by field: what the old way holds, what the new system must accept, and which gaps need a decision.',
     ),
   },
   {
     id: 'closed',
     value: '1',
-    suffix: l('ดีล', 'deal'),
-    label: l('ปิดการขายเอง', 'Closed end to end'),
+    suffix: l('โครงการ', 'project'),
+    label: l('ร่วมตั้งแต่คุยครั้งแรกจนปิดงาน', 'Supported from first call to close'),
     detail: l(
-      'ตั้งแต่คุยครั้งแรก เก็บโจทย์ เสนอ จนลูกค้าตัดสินใจ',
-      'From first conversation through discovery and proposal to the client signing.',
+      'อยู่ตั้งแต่ discovery เก็บโจทย์ นำเสนอ จนโครงการปิด — ไม่ได้รับผิดชอบเป้าการขาย แต่มีส่วนร่วมทุกขั้น',
+      'Present through discovery, requirements, and presentation until the project closed — not carrying a sales quota, but involved at every step.',
+    ),
+  },
+  {
+    id: 'scope',
+    value: 'E2E',
+    label: l('ขอบเขตงานที่รับผิดชอบ', 'The span I own'),
+    detail: l(
+      'Discovery → Requirement → Solution Design → Specification → Delivery — ไม่ได้ส่งต่อแล้วจบ',
+      'Discovery → requirement → solution design → specification → delivery. Not a hand-off and out.',
     ),
   },
 ]

@@ -38,8 +38,16 @@
   /* accent แบบจาง ใช้เป็นพื้นปุ่มหน้าที่เปิดอยู่ */
   --accent-soft: rgba(255, 90, 31, 0.13);
 
+  /* ไล่สีส้ม→เหลือง ใช้ตอนเอาเมาส์ผ่านหัวข้อ */
+  --hot-1: #f2600f;
+  --hot-2: #f0a51e;
+
   --invert-bg: #111110;
   --invert-fg: #f4f3f1;
+
+  /* ส้มสำหรับของที่วางบนแถบพื้นกลับด้าน (--invert-bg)
+     ธีมสว่าง = แถบเป็นสีเข้ม เลยต้องใช้ส้มสว่างกว่า --accent ถึงจะอ่านออก */
+  --accent-invert: #ff8a4c;
 
   /* ลายพื้นหลัง — จางมากโดยตั้งใจ ให้รู้สึกว่ากระดาษมีเนื้อ ไม่ใช่เห็นเป็นลวดลาย */
   --pattern-ink: rgba(17, 17, 16, 0.05);
@@ -60,8 +68,14 @@
   --accent: #ff7a45;
   --accent-soft: rgba(255, 122, 69, 0.18);
 
+  --hot-1: #ff8a4c;
+  --hot-2: #ffc861;
+
   --invert-bg: #f2f1ef;
   --invert-fg: #111110;
+
+  /* ธีมมืด = แถบกลับเป็นสีสว่าง ส้มเลยต้องเข้มลงถึงจะไม่จมพื้น */
+  --accent-invert: #d9490f;
 
   --pattern-ink: rgba(242, 241, 239, 0.045);
 }
@@ -88,6 +102,16 @@
   }
 
   ::selection { background: var(--ink); color: var(--page); }
+
+  /* Tailwind v4 ตั้ง cursor ของ button เป็น default มาให้ ซึ่งขัดกับที่คนคาด
+     อะไรที่กดได้ต้องขึ้นมือชี้ทุกอัน */
+  a,
+  button:not(:disabled),
+  summary,
+  label[for],
+  [role="button"] {
+    cursor: pointer;
+  }
 
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -147,6 +171,43 @@
   /* เบราว์เซอร์ที่ไม่รองรับ text-stroke ให้ใช้สีจาง ๆ แทน จะได้ยังอ่านออก */
   @supports not (-webkit-text-stroke: 1px black) {
     .display-outline { color: var(--ink-3); }
+  }
+
+  /* ---------- หัวข้อติดไฟตอนเอาเมาส์ผ่าน ----------
+     ไล่สีส้ม→เหลืองถูกระบายรออยู่ใต้ตัวอักษรตลอดเวลา แต่ถูกทับด้วย text-fill-color
+     พอชี้ก็แค่เปลี่ยน fill เป็นใส ให้ไล่สีที่รออยู่โผล่ขึ้นมา
+     ที่ไม่ทำตรง ๆ เพราะ background ไล่สีมัน transition ไม่ได้ แต่ text-fill-color เป็นสี
+     เลยจางเข้าหากันได้ ไม่กระตุก */
+  h1 .display,
+  h2.display,
+  h3.display {
+    background-image: linear-gradient(100deg, var(--hot-1), var(--hot-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: var(--ink);
+    cursor: pointer;
+    /* เส้นนี้คุมขา "เอาเมาส์ออก" — ตั้งไว้ยาวกว่าขาเข้าเยอะ ให้สีค่อย ๆ ถอยแบบนุ่ม ๆ
+       ไม่ใช่ดับพรึบพร้อมกับที่เมาส์พ้นตัวอักษร */
+    transition: -webkit-text-fill-color 0.9s ease, -webkit-text-stroke-color 0.9s ease;
+  }
+  h1 .display:hover,
+  h2.display:hover,
+  h3.display:hover {
+    -webkit-text-fill-color: transparent;
+    /* ขาเข้าให้ไวกว่า จะได้รู้สึกว่ามันตอบสนองทันที */
+    transition: -webkit-text-fill-color 0.25s ease, -webkit-text-stroke-color 0.25s ease;
+  }
+
+  /* ตัวกลวงไม่มีเนื้อให้ระบายไล่สี เลยไปเปลี่ยนสีเส้นขอบแทน */
+  h1 .display-outline,
+  h2.display-outline,
+  h3.display-outline {
+    -webkit-text-fill-color: transparent;
+  }
+  h1 .display-outline:hover,
+  h2.display-outline:hover,
+  h3.display-outline:hover {
+    -webkit-text-stroke-color: var(--hot-1);
   }
 
   .eyebrow {
@@ -246,23 +307,36 @@
   .link-wipe[aria-current="true"]::after { transform: scaleX(1); }
 
   /* ---------- กรอบรูปถ่าย ----------
-     ขาวดำไว้ก่อนให้เข้ากับธีม แล้วค่อยคืนสีตอนชี้ ทำให้รูปดูเป็นงานพิมพ์ ไม่ใช่รูปแปะ */
+     เห็นสีจริงตั้งแต่แรก ไม่ต้องเอาเมาส์ไปชี้ก่อน
+     เหลือแค่ซูมเบา ๆ ตอนชี้ พอให้รู้ว่ารูปตอบสนอง แต่ไม่ไปแย่งความสนใจจากเนื้อหา */
   .photo-frame {
     position: relative;
     overflow: hidden;
     border: 1px solid var(--line);
     background: var(--page-2);
   }
+  .photo-frame { cursor: pointer; }
   .photo-frame img {
     display: block;
-    filter: grayscale(1) contrast(1.04);
-    transition: filter 0.5s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    /* ขาออกยาวกว่าขาเข้า ให้ค่อย ๆ คลายกลับ ไม่ใช่ดีดกลับทันที */
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .photo-frame:hover img,
   .photo-frame:focus-within img {
-    filter: grayscale(0) contrast(1);
     transform: scale(1.03);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
+
+  /* ---------- กรอบรูปแบบไม่แต่งสี ----------
+     ใช้กับรูปหน้าแรก ที่อยากให้เห็นสีจริงตั้งแต่แรกโดยไม่ต้องเอาเมาส์ไปชี้ */
+  .photo-plain {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--page-2);
+  }
+  .photo-plain,
+  .photo-plain img { display: block; cursor: pointer; }
 
   /* ---------- ปุ่มเมนูบน navbar ----------
      หน้าที่เปิดอยู่ต้องดูออกทันทีโดยไม่ต้องเทียบกับตัวอื่น จึงใช้พื้นสีไม่ใช่แค่ตัวหนาขึ้น */
@@ -282,14 +356,83 @@
     color: var(--accent);
   }
 
-  /* ---------- แถบโลโก้เลื่อน ---------- */
-  .marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-  .marquee > div {
+  /* ---------- แถบเครื่องมือเลื่อน ----------
+     ตัวเลื่อนจริงย้ายไปอยู่ใน JS (components/ui/Marquee.tsx) เพราะโจทย์คือ
+     "เอาเมาส์ไปจ่อแล้วค่อย ๆ ช้าลงจนหยุด" ซึ่ง CSS ล้วนทำไม่ได้
+     (animation-duration ทำ transition ไม่ได้ ส่วน animation-play-state ก็หยุดพรึบทันที)
+     ที่เหลือไว้ตรงนี้มีแค่กรอบกับขอบที่ไล่จางสองข้าง */
+  .marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
     display: flex;
     width: max-content;
-    animation: slide 34s linear infinite;
+    will-change: transform;
   }
-  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* ---------- คำในแถบเครื่องมือ ----------
+     จ่อแล้วค่อย ๆ ไล่เป็นสีส้ม ขาออกช้ากว่าขาเข้าเหมือนพาดหัว
+     ให้รู้สึกว่าสีถอยเอง ไม่ใช่ดับพรึบตอนเมาส์พ้นตัวอักษร
+     (แถบก็หน่วงจนหยุดไปพร้อมกัน ดู Marquee.tsx) */
+  .tool-chip {
+    cursor: pointer;
+    transition: color 0.9s ease, opacity 0.9s ease;
+  }
+  /* ตัวที่จ่ออยู่ต้องสว่างเต็มด้วย ไม่งั้นคำกลุ่ม "วิธีทำงาน" ที่ถูกหรี่ไว้จะได้ส้มซีด ๆ */
+  .tool-chip:hover {
+    color: var(--accent-invert);
+    opacity: 1;
+    transition: color 0.28s ease, opacity 0.28s ease;
+  }
+
+  /* ---------- แอนิเมชันเล็ก ๆ ของหน้าแรก ----------
+     ทุกตัวสั้น เบา และวนช้า — หน้ากระดาษแบบนี้ไหวนิด ๆ ได้ แต่ห้ามเด้งจนแย่งความสนใจ
+     ทั้งชุดถูกปิดพร้อมกันในบล็อก prefers-reduced-motion ท้ายไฟล์ */
+  @keyframes float-y {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
+  @keyframes spin-slow { to { transform: rotate(360deg); } }
+  @keyframes pop-in {
+    0% { opacity: 0; transform: scale(0.92) translateY(12px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes nudge-down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+  /* วงแหวนจาง ๆ ผุดออกจากจุดสถานะ ให้จุด "เปิดรับงาน" ดูมีชีพจร */
+  @keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.55; }
+    70% { transform: scale(2.6); opacity: 0; }
+    100% { transform: scale(2.6); opacity: 0; }
+  }
+
+  .anim-float { animation: float-y 4.5s ease-in-out infinite; }
+  .anim-wiggle { animation: wiggle 2.6s ease-in-out infinite; transform-origin: bottom center; }
+  .anim-spin-slow { animation: spin-slow 20s linear infinite; }
+  .anim-pop { animation: pop-in 0.34s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+  .anim-rise { animation: rise-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-nudge { animation: nudge-down 1.7s ease-in-out infinite; }
+  .anim-pulse-ring { animation: pulse-ring 2.8s ease-out infinite; }
+
+  /* สติกเกอร์กลม ๆ ที่หมุนอยู่มุมรูป — วงกลมหมุน แต่ตัวหนังสือข้างในไม่เอียงตาม */
+  .sticker {
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--invert-bg);
+    color: var(--invert-fg);
+  }
 
   .reveal {
     opacity: 0;
@@ -302,7 +445,16 @@
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; transition: none; }
-  .marquee > div { animation: none; }
   .photo-frame:hover img { transform: none; }
   html { scroll-behavior: auto; }
+
+  /* แถบเครื่องมือหยุดนิ่งเอง (Marquee.tsx เช็ค media query เดียวกันนี้ก่อนเริ่มวิ่ง)
+     ที่เหลือคือปิดแอนิเมชันตกแต่งทั้งชุด แต่ยังต้องเห็นของครบ ไม่ใช่หายไป */
+  .anim-float,
+  .anim-wiggle,
+  .anim-spin-slow,
+  .anim-nudge,
+  .anim-pulse-ring { animation: none !important; }
+  .anim-pop,
+  .anim-rise { animation: none !important; opacity: 1 !important; transform: none !important; }
 }

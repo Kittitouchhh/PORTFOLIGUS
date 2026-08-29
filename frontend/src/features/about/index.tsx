@@ -4,7 +4,46 @@ import { useLang } from '@/hooks/useLang'
 import { useContent } from '@/hooks/useContent'
 import { l } from '@/types/i18n.type'
 
-/** สี่อย่างที่อยากให้คนอ่านจำได้ */
+/**
+ * สี่อย่างที่อยากให้ recruiter อ่านสิบวินาทีแล้วจำได้
+ * ใช้คำเรียกแบบที่ใช้กันในสายงาน ไม่ใช่คำบรรยายตัวเอง — คนอ่านสแกนหาคำพวกนี้อยู่
+ */
+const brings = [
+  {
+    id: 'business',
+    title: l('Business Understanding', 'Business Understanding'),
+    body: l(
+      'เข้าใจกระบวนการและเป้าหมายของธุรกิจ ไม่มอง requirement เป็นแค่ feature list',
+      'I read the process and the business goal behind it, not a requirement as a feature list.',
+    ),
+  },
+  {
+    id: 'product',
+    title: l('Product Thinking', 'Product Thinking'),
+    body: l(
+      'เปลี่ยน pain point ให้เป็น flow และ solution ที่ผู้ใช้เข้าใจได้จริง',
+      'I turn a pain point into a flow and a solution the actual user can follow.',
+    ),
+  },
+  {
+    id: 'technical',
+    title: l('Technical Foundation', 'Technical Foundation'),
+    body: l(
+      'มีพื้นฐาน software development ทำให้คุยกับ dev รู้เรื่องและประเมิน technical feasibility ได้',
+      'A software development background, so I can talk to developers properly and judge technical feasibility.',
+    ),
+  },
+  {
+    id: 'ownership',
+    title: l('Ownership', 'Ownership'),
+    body: l(
+      'รับผิดชอบตั้งแต่ discovery จนถึง delivery และตามผลหลังส่งมอบ',
+      'I own it from discovery through delivery, and follow up after it ships.',
+    ),
+  },
+]
+
+/** สี่อย่างที่เป็นนิสัยการทำงานจริง ๆ — คนละชั้นกับ brings ด้านบน */
 const pillars = [
   {
     id: 'listen',
@@ -52,13 +91,30 @@ export function About() {
         title={tr('section.about.title')}
       />
 
+      {/* อ่านสิบวินาทีจบ — วางไว้ก่อนย่อหน้ายาวโดยตั้งใจ */}
+      <div className="mb-16">
+        <p className="eyebrow mb-7">{tr('about.brings')}</p>
+        <ul className="grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
+          {brings.map((item) => (
+            <li key={item.id} className="border-t border-ink pt-5">
+              <h3 className="display text-lg">{t(item.title)}</h3>
+              <p className="mt-3 text-[14px] leading-relaxed text-ink-2">{t(item.body)}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div className="grid gap-14 lg:grid-cols-[1.1fr_1fr]">
         <div className="space-y-6 text-[17px] leading-relaxed text-ink-2">
           <p className="text-[19px] text-ink sm:text-[22px] sm:leading-snug">
             {t(profile.intro)}
           </p>
           <p>{t(profile.introSecondary)}</p>
-          <p>{t(profile.introMotivation)}</p>
+
+          {/* เหตุผลส่วนตัว — เก็บไว้ แต่ลดน้ำหนักลง ไม่ให้ไปแย่งที่ของสองย่อหน้าบน */}
+          <p className="border-l border-line pl-5 text-[15px] text-ink-3">
+            {t(profile.introMotivation)}
+          </p>
         </div>
 
         <ul>
