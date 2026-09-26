@@ -1,8 +1,8 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  /** โดเมนของ API ตอน deploy จริง — ตอน dev ปล่อยว่างแล้วใช้ proxy ของ vite */
-  readonly VITE_API_URL?: string
+  /** access key ของ Web3Forms (เปิดเผยได้) — ฟอร์มติดต่อส่งอีเมลตรงจากเบราว์เซอร์ */
+  readonly VITE_WEB3FORMS_ACCESS_KEY?: string
 }
 
 interface ImportMeta {

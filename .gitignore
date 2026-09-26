@@ -12,6 +12,3 @@ dist-ssr
 
 *.tsbuildinfo
 
-# backend
-backend/.env
-backend/data/*.jsonl

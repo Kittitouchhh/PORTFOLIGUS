@@ -3,13 +3,11 @@ import type { Theme } from '@/types/theme.type'
 
 /**
  * ค่าตั้งต้นของแอปที่ปรับผ่าน .env ได้
- *
- * ตอน dev ปล่อย apiBaseUrl ว่างไว้ แล้วให้ vite proxy /api ไปที่ backend
- * ตอน deploy จริงตั้ง VITE_API_URL เป็นโดเมนของ API
+
  */
 export const appConfig = {
-  apiBaseUrl: import.meta.env.VITE_API_URL ?? '',
-  apiPrefix: '/api',
+  /** key ของ Web3Forms — ฟอร์มติดต่อส่งอีเมลตรงจากเบราว์เซอร์ (ตั้งใน frontend/.env และในหน้าตั้งค่าของ Vercel) */
+  web3formsKey: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? '',
 
   /** ธีมเริ่มต้นเป็นมืด — กระจกฝ้าอ่านง่ายและสวยกว่าบนพื้นเข้ม */
   defaultTheme: 'dark' as Theme,

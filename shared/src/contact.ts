@@ -2,9 +2,8 @@ import type { L } from './types'
 import { l } from './types'
 
 /**
- * สัญญาของฟอร์มติดต่อ ใช้ร่วมกันสองฝั่ง
- * frontend ตรวจก่อนส่งเพื่อให้ผู้ใช้เห็นทันที
- * backend ตรวจซ้ำเพราะห้ามเชื่อ client
+ * กติกาของฟอร์มติดต่อ (ความยาว + การตรวจข้อมูล)
+ * frontend ตรวจก่อนส่งเพื่อให้ผู้ใช้เห็นทันที (ส่งต่อไป Web3Forms)
  */
 export const CONTACT_LIMITS = {
   name: { min: 2, max: 80 },
@@ -66,8 +65,3 @@ export function validateContact(input: Partial<ContactPayload>): ContactErrors {
 export function isValidContact(input: Partial<ContactPayload>): boolean {
   return Object.keys(validateContact(input)).length === 0
 }
-
-/** รูปแบบคำตอบที่ backend ส่งกลับ */
-export type ApiOk<T> = { ok: true; data: T }
-export type ApiErr = { ok: false; error: { code: string; message: string; fields?: Record<string, string> } }
-export type ApiResult<T> = ApiOk<T> | ApiErr

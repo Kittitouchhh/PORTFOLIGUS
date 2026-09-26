@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Container } from './Container'
-import { LanguageToggle, ThemeToggle } from '@/components/ui/Toggles'
+import { LanguageToggle } from '@/components/ui/Toggles'
 import { useLang } from '@/hooks/useLang'
 import { useActiveSection } from '@/hooks/useActiveSection'
 import { useScrollProgress } from '@/hooks/useScrollProgress'
@@ -45,24 +45,24 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300',
+        'sticky top-0 z-50 border-b border-line transition-[background-color,box-shadow,backdrop-filter] duration-300 lg:hidden',
         lifted && 'shadow-[0_1px_0_var(--line)] backdrop-blur-md',
       )}
       style={lifted ? { background: 'color-mix(in srgb, var(--page) 82%, transparent)' } : undefined}
     >
-      <Container className="flex h-20 items-center gap-6">
+      <Container className="flex h-[72px] items-center gap-6">
         <button
           type="button"
           onClick={() => go(TOP_ID)}
-          className="display flex items-baseline gap-1 text-xl"
+          className="font-brand flex items-baseline text-[24px] font-extrabold tracking-tight text-ink"
         >
-          {tr('brand.short')}
+          Kittitouch
           <span aria-hidden="true" className="text-accent">
             .
           </span>
         </button>
 
-        <nav className="ml-auto hidden items-center gap-1 text-[14px] font-medium lg:flex">
+        <nav className="mx-auto hidden items-center gap-2 text-[16px] font-medium lg:flex">
           {SECTIONS.map((section) => (
             <button
               key={section.id}
@@ -76,16 +76,15 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-4 lg:ml-7">
+        <div className="ml-auto flex items-center gap-3 lg:ml-0">
           <LanguageToggle className="hidden sm:flex" />
-          <ThemeToggle />
 
           <button
             type="button"
             onClick={() => go(CONTACT_ID)}
-            className="pill pill-solid pill-sm hidden font-medium sm:inline-flex"
+            className="hidden h-12 items-center gap-2 rounded-full bg-ink px-5 font-semibold text-page transition hover:-translate-y-0.5 sm:inline-flex"
           >
-            {tr('nav.contact')}
+            {tr('nav.hello')} <span aria-hidden="true">↗</span>
           </button>
 
           <button

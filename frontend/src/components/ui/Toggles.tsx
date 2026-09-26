@@ -10,7 +10,7 @@ export function LanguageToggle({ className }: { className?: string }) {
     <div
       role="group"
       aria-label={tr('lang.toggle')}
-      className={cn('flex items-center gap-3 text-[13px] font-semibold', className)}
+      className={cn('flex items-center gap-1 rounded-full border border-line p-1 text-[14px] font-semibold', className)}
     >
       {(['th', 'en'] as const).map((code) => (
         <button
@@ -19,7 +19,10 @@ export function LanguageToggle({ className }: { className?: string }) {
           onClick={() => setLang(code)}
           aria-pressed={lang === code}
           aria-current={lang === code}
-          className="link-wipe uppercase"
+          className={cn(
+            'rounded-full px-3.5 py-2 uppercase transition',
+            lang === code ? 'bg-ink text-page' : 'text-ink-2 hover:text-ink',
+          )}
         >
           {code}
         </button>

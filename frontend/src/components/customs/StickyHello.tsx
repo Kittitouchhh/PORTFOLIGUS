@@ -48,7 +48,7 @@ export function StickyHello() {
         aria-hidden={!shown}
         tabIndex={shown ? 0 : -1}
         className={[
-          'fixed right-5 bottom-5 z-50 flex items-center gap-2 rounded-full border border-line',
+          'fixed right-5 bottom-5 z-50 flex items-center gap-2 rounded-full border border-line lg:hidden',
           'bg-invert-bg px-4 py-3 text-[13px] font-semibold text-invert-fg',
           'shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)] transition-all duration-500',
           shown

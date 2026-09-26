@@ -8,7 +8,10 @@
    สีมีจุดเดียวทั้งเว็บ ใช้เน้นของสำคัญที่สุดเท่านั้น
    ============================================================ */
 @theme {
-  --font-display: "Kanit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Anuphan", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "Bricolage Grotesque", "Anuphan", sans-serif;
+  --font-hand: "Itim", "Anuphan", cursive;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-sans: "Anuphan", ui-sans-serif, system-ui, sans-serif;
 
   --color-ink: var(--ink);
@@ -17,6 +20,9 @@
   --color-line: var(--line);
   --color-page: var(--page);
   --color-accent: var(--accent);
+  --color-card: var(--card);
+  --color-yellow: var(--yellow);
+  --color-yellow-soft: var(--yellow-soft);
   --color-invert-bg: var(--invert-bg);
   --color-invert-fg: var(--invert-fg);
 }
@@ -24,60 +30,38 @@
 :root {
   color-scheme: light;
 
-  /* พื้นนอกสุด เข้มไว้ให้เห็นมุมโค้งของหน้ากระดาษ */
-  --ground: #17150f;
+  /* ============================================================
+     ธีม: กระดาษครีม + หมึกดำ + เหลืองมัสตาร์ด (ตามไฟล์ Gus Portfolio Redesign)
+     เส้นขอบดำหนา 2px + เงาทึบเยื้อง ให้ดูเป็นสติกเกอร์/งานพิมพ์ ไม่ใช่เว็บบริษัท
+     ธีมเดียว ไม่มีโหมดมืด — ดีไซน์ออกแบบมาบนพื้นครีมอย่างเดียว
+     ============================================================ */
+  --ground: #ebe5d6;
 
-  --page: #f4f3f1;
-  --page-2: #eae8e4;
-  --ink: #111110;
-  --ink-2: #4d4a45;
-  --ink-3: #8b8781;
-  --line: #dcd8d2;
+  --page: #F6F2EA;
+  --page-2: #ece6d8;
+  --card: #fffdf8;
+  --ink: #191816;
+  --ink-2: #5b574f;
+  --ink-3: #9C958A;
+  --line: #D6CEBD;
 
-  --accent: #ff5a1f;
-  /* accent แบบจาง ใช้เป็นพื้นปุ่มหน้าที่เปิดอยู่ */
-  --accent-soft: rgba(255, 90, 31, 0.13);
+  /* เหลืองสำหรับพื้น/ไฮไลต์ · ทองสำหรับตัวอักษร (เหลืองบนครีมอ่านไม่ออก) */
+  --yellow: #ffc940;
+  --yellow-soft: #fff1c7;
+  --accent: #e0a100;
+  --accent-soft: rgba(255, 201, 64, 0.22);
+  --peach: #f4a88a;
+  --peach-soft: #fde6dc;
 
-  /* ไล่สีส้ม→เหลือง ใช้ตอนเอาเมาส์ผ่านหัวข้อ */
-  --hot-1: #f2600f;
-  --hot-2: #f0a51e;
+  --hot-1: #e0a100;
+  --hot-2: #ffc940;
 
-  --invert-bg: #111110;
-  --invert-fg: #f4f3f1;
+  --invert-bg: #191816;
+  --invert-fg: #f5f1e8;
+  --accent-invert: #ffc940;
 
-  /* ส้มสำหรับของที่วางบนแถบพื้นกลับด้าน (--invert-bg)
-     ธีมสว่าง = แถบเป็นสีเข้ม เลยต้องใช้ส้มสว่างกว่า --accent ถึงจะอ่านออก */
-  --accent-invert: #ff8a4c;
-
-  /* ลายพื้นหลัง — จางมากโดยตั้งใจ ให้รู้สึกว่ากระดาษมีเนื้อ ไม่ใช่เห็นเป็นลวดลาย */
-  --pattern-ink: rgba(17, 17, 16, 0.05);
-}
-
-.dark {
-  color-scheme: dark;
-
-  --ground: #000000;
-
-  --page: #0d0d0c;
-  --page-2: #161614;
-  --ink: #f2f1ef;
-  --ink-2: #a9a5a0;
-  --ink-3: #6d6963;
-  --line: #272522;
-
-  --accent: #ff7a45;
-  --accent-soft: rgba(255, 122, 69, 0.18);
-
-  --hot-1: #ff8a4c;
-  --hot-2: #ffc861;
-
-  --invert-bg: #f2f1ef;
-  --invert-fg: #111110;
-
-  /* ธีมมืด = แถบกลับเป็นสีสว่าง ส้มเลยต้องเข้มลงถึงจะไม่จมพื้น */
-  --accent-invert: #d9490f;
-
-  --pattern-ink: rgba(242, 241, 239, 0.045);
+  --pattern-ink: rgba(25, 24, 22, 0.05);
+  --band-method: #22211e;
 }
 
 @layer base {
@@ -151,15 +135,76 @@
       repeating-linear-gradient(-45deg, var(--pattern-ink) 0 1px, transparent 1px 18px);
   }
 
+  /* ---------- แถบพื้นของหัวข้อผลงาน ----------
+     หัวข้อเดียวที่พื้นไม่เหมือนที่อื่น ให้รู้สึกว่าเข้ามาในโซนโชว์ของ
+     แสงส้มมุมขวาบน ฟ้ามุมซ้ายล่าง ทับด้วยจุดจาง ๆ ใช้ตัวแปรธีมทั้งหมด สลับมืด/สว่างได้เอง */
+  .band-work {
+    background-color: var(--page-2);
+    background-image:
+      radial-gradient(circle, var(--pattern-ink) 1px, transparent 1.5px),
+      radial-gradient(55rem 32rem at 100% 0%, var(--accent-soft), transparent 65%),
+      radial-gradient(50rem 30rem at 0% 100%, rgba(56, 189, 248, 0.1), transparent 65%);
+    background-size: 22px 22px, auto, auto;
+    border-block: 1px solid var(--line);
+  }
+
+  /* ---------- แถบพื้นของหัวข้อวิธีทำงาน ----------
+     โทนเย็น (ฟ้าเทา) ตัดกับหัวข้อผลงานที่เป็นโทนอุ่น ให้รู้ว่าเปลี่ยนเรื่องแล้ว
+     การ์ดตัวอย่างข้างในเป็นพื้นขาวทั้งสองธีม เลยต้องให้พื้นแถบเข้มพอในธีมมืด */
+  .band-method {
+    background-color: var(--band-method);
+    background-image:
+      linear-gradient(to right, var(--pattern-ink) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--pattern-ink) 1px, transparent 1px),
+      radial-gradient(50rem 28rem at 0% 0%, rgba(99, 102, 241, 0.12), transparent 65%);
+    background-size: 32px 32px, 32px 32px, auto;
+    border-block: 1px solid var(--line);
+  }
+
   /* ---------- ตัวพาดหัว ---------- */
   .display {
     font-family: var(--font-display);
-    font-weight: 800;
-    letter-spacing: -0.035em;
-    /* ไทยมีสระบนวรรณยุกต์ บีบบรรทัดแน่นกว่านี้แล้วหัวจะโดนตัด */
-    line-height: 0.94;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
     color: var(--ink);
   }
+
+  /* ---------- ชิ้นส่วนเฉพาะธีมนี้ ---------- */
+  .font-brand { font-family: var(--font-brand); }
+  .font-hand { font-family: var(--font-hand); }
+  .font-code { font-family: var(--font-mono); }
+
+  /* ขีดเน้นเหลืองครึ่งล่างของตัวอักษร เหมือนปากกาเน้นข้อความ */
+  .mark {
+    background-image: linear-gradient(transparent 58%, var(--yellow) 58%);
+    padding-inline: 0.05em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* การ์ดขอบดำหนา + เงาทึบเยื้อง */
+  .ink-card {
+    background: var(--card);
+    border: 2px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+  .soft-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+  }
+
+  .btn-ink {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    height: 3.25rem; padding-inline: 1.75rem; border-radius: 999px;
+    border: 2px solid var(--ink); font-weight: 700; color: var(--ink);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-yellow { background: var(--yellow); box-shadow: 4px 4px 0 var(--ink); }
+  .btn-yellow:hover { transform: translate(-1px, -1px); box-shadow: 6px 6px 0 var(--ink); }
+  .btn-yellow:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn-line { background: transparent; font-weight: 600; }
+  .btn-line:hover { background: var(--card); }
 
   /* ตัวกลวง — ลายเซ็นของธีมนี้ */
   .display-outline {
@@ -184,8 +229,7 @@
     background-image: linear-gradient(100deg, var(--hot-1), var(--hot-2));
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: var(--ink);
-    cursor: pointer;
+    -webkit-text-fill-color: currentColor;
     /* เส้นนี้คุมขา "เอาเมาส์ออก" — ตั้งไว้ยาวกว่าขาเข้าเยอะ ให้สีค่อย ๆ ถอยแบบนุ่ม ๆ
        ไม่ใช่ดับพรึบพร้อมกับที่เมาส์พ้นตัวอักษร */
     transition: -webkit-text-fill-color 0.9s ease, -webkit-text-stroke-color 0.9s ease;
@@ -193,7 +237,7 @@
   h1 .display:hover,
   h2.display:hover,
   h3.display:hover {
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: currentColor;
     /* ขาเข้าให้ไวกว่า จะได้รู้สึกว่ามันตอบสนองทันที */
     transition: -webkit-text-fill-color 0.25s ease, -webkit-text-stroke-color 0.25s ease;
   }
@@ -213,7 +257,7 @@
   .eyebrow {
     font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--ink-3);
   }
@@ -313,6 +357,7 @@
     position: relative;
     overflow: hidden;
     border: 1px solid var(--line);
+    border-radius: 1rem;
     background: var(--page-2);
   }
   .photo-frame { cursor: pointer; }
@@ -333,6 +378,7 @@
     position: relative;
     overflow: hidden;
     border: 1px solid var(--line);
+    border-radius: 1.5rem;
     background: var(--page-2);
   }
   .photo-plain,
@@ -441,10 +487,75 @@
                 transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .reveal-in { opacity: 1; transform: none; }
+
+  /* ---------- ลูกเล่นตอนเลื่อน ----------
+     .stagger : ลูกทุกตัวค่อย ๆ โผล่ทีละใบ หลังจากกล่องแม่ (.reveal) เข้าจอแล้ว
+     .mark    : ขีดเหลืองวาดตัวเองจากซ้ายไปขวาตอนหัวข้อเข้าจอ
+     .pop-card: การ์ดเด้งขึ้นพร้อมเอียงนิด ๆ แล้วตั้งตรง */
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(26px) scale(0.98);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-in .stagger > *,
+  .reveal-in.stagger > * { opacity: 1; transform: none; }
+  .stagger > *:nth-child(2) { transition-delay: 80ms; }
+  .stagger > *:nth-child(3) { transition-delay: 160ms; }
+  .stagger > *:nth-child(4) { transition-delay: 240ms; }
+  .stagger > *:nth-child(5) { transition-delay: 320ms; }
+  .stagger > *:nth-child(6) { transition-delay: 400ms; }
+  .stagger > *:nth-child(7) { transition-delay: 460ms; }
+  .stagger > *:nth-child(8) { transition-delay: 520ms; }
+  .stagger > *:nth-child(n + 9) { transition-delay: 580ms; }
+
+  .reveal .mark,
+  .anim-mark .mark {
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.35s;
+  }
+  .reveal-in .mark,
+  .anim-mark.mark-on .mark { background-size: 100% 100%; }
+
+  .pop-card {
+    opacity: 0;
+    transform: translateY(60px) rotate(-1.2deg) scale(0.97);
+    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .pop-card.reveal-in { opacity: 1; transform: none; }
+
+  /* ป้ายบอกหัวข้อ "01 — งานจริง" เส้นยืดออกตอนเข้าจอ */
+  .chapter-line { display: inline-block; height: 2px; width: 0; background: currentColor; vertical-align: middle; transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s; }
+  .reveal-in .chapter-line { width: 2.5rem; }
 }
 
+/* ---------- แอนิเมชันเปิดหน้า (design-handoff 2.1) ---------- */
+@keyframes gRise { from { opacity: 0; transform: translateY(26px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes gPop { 0% { opacity: 0; transform: scale(.55) rotate(-8deg); } 70% { opacity: 1; transform: scale(1.06) rotate(1deg); } 100% { opacity: 1; transform: none; } }
+@keyframes gBig { 0% { opacity: 0; transform: translateY(40px) scale(.9); letter-spacing: .04em; } 100% { opacity: 1; transform: none; letter-spacing: -0.015em; } }
+@keyframes gSlide { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: none; } }
+/* ปก B: บัตรหล่นลงมาจากบน แล้วแกว่งเบา ๆ ไม่รู้จบ (จุดหมุนที่ปลายสายด้านบน) */
+@keyframes badgeDrop { 0% { transform: translateY(-110%) rotate(-6deg); } 60% { transform: translateY(4%) rotate(2deg); } 80% { transform: translateY(-1%) rotate(-1deg); } 100% { transform: none; } }
+@keyframes badgeSwing { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(-1.5deg); } }
+@keyframes coverMark { from { background-size: 0% 100%; } to { background-size: 100% 100%; } }
+.cover-badge { animation: badgeDrop 1.1s cubic-bezier(.2,.8,.2,1) .1s both; }
+/* แกว่งเฉพาะตัวบัตร (จุดหมุนที่ตัวหนีบ) — สายยืดยาวแค่ไหนบัตรก็ไม่เหวี่ยงออกนอกช่อง */
+.cover-swing { animation: badgeSwing 5s ease-in-out 1.2s infinite; }
+.cover-mark { background-image: linear-gradient(transparent 60%, var(--yellow) 60%); background-repeat: no-repeat; animation: coverMark .7s ease-out 1.9s both; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+@keyframes scPopA { 0% { opacity: 0; transform: translateY(16px) scale(.8) rotate(-6deg); } 70% { opacity: 1; transform: translateY(-3px) scale(1.04); } 100% { opacity: 1; transform: none; } }
+@keyframes scPopB { 0% { opacity: 0; transform: translateY(16px) scale(.8) rotate(6deg); } 70% { opacity: 1; transform: translateY(-3px) scale(1.04); } 100% { opacity: 1; transform: none; } }
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+  .g-intro, .cover-badge, .cover-swing, .cover-mark { animation: none !important; }
+  .cover-swing { transform: rotate(-3deg); }
+  .cover-mark { background-size: 100% 100%; }
+  .reveal,
+  .pop-card,
+  .stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .reveal .mark,
+  .anim-mark .mark { background-size: 100% 100% !important; transition: none !important; }
+  .chapter-line { width: 2.5rem !important; transition: none !important; }
   .photo-frame:hover img { transform: none; }
   html { scroll-behavior: auto; }
 
@@ -458,3 +569,37 @@
   .anim-pop,
   .anim-rise { animation: none !important; opacity: 1 !important; transform: none !important; }
 }
+
+/* ---------- รอบ 3–4: ส่วนงาน B ป็อปอัป · GraphicDemo · แกลเลอรี · scroll snap ---------- */
+@keyframes popIn { from { opacity: 0; transform: translateY(24px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes charPopL { 0% { opacity: 0; transform: translate(-30px, 40px) scale(.7) rotate(-8deg); } 70% { opacity: 1; transform: translate(0, -6px) scale(1.04); } 100% { opacity: 1; transform: none; } }
+@keyframes charPopR { 0% { opacity: 0; transform: translate(30px, 40px) scale(.7) rotate(8deg); } 70% { opacity: 1; transform: translate(0, -6px) scale(1.04); } 100% { opacity: 1; transform: none; } }
+@keyframes backdropIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes grMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes tabNudge { 0%, 80%, 100% { transform: translateY(0) rotate(0); } 86% { transform: translateY(-4px) rotate(-8deg); } 92% { transform: translateY(0) rotate(6deg); } }
+@keyframes tabProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes photoIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* เลื่อนแบบแม่เหล็ก: ดูดเฉพาะตอนใกล้ · section สูงกว่าจอ (is-tall จาก ResizeObserver) ดูดหัวข้อชิดบน */
+/* เลื่อนแบบแม่เหล็กทำด้วย JS (hooks/useMagnetScroll.ts) — คลาสด้านล่างใช้บอกจุดดูดและจัดจอย่อยให้เต็มจอ
+   .section-band = แถบละจอ (สูงอย่างน้อย 1 จอ เนื้อหากลาง) · .snap-part = ท่อนย่อยของ section ที่สูงเกินจอ */
+@media (min-width: 1024px) and (min-height: 600px) {
+  .snap-part { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+  .section-band:has(.snap-part) { padding-top: 0; padding-bottom: 0; }
+}
+/* ป็อปอัปเปิดอยู่ — ล็อกหน้าไม่ให้เลื่อนข้างหลัง */
+html.modal-open { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rm-still, .rm-still * { animation: none !important; }
+}
+
+/* ประวัติการศึกษา: การ์ด "เรียนฟรีด้วยทุนเต็มจำนวน" สีทอง + แสงวิ่งผ่าน */
+.edu-gold { background: linear-gradient(135deg, #FFF1B8 0%, #FFD35C 28%, #F5B400 58%, #D99A00 100%); }
+.edu-gold::after {
+  content: ''; position: absolute; inset: -40% auto -40% -60%; width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.65), transparent);
+  transform: skewX(-18deg); animation: goldShine 3.6s ease-in-out 1s infinite; pointer-events: none;
+}
+@keyframes goldShine { 0% { left: -60%; } 55%, 100% { left: 130%; } }
+@media (prefers-reduced-motion: reduce) { .edu-gold::after { animation: none; display: none; } }

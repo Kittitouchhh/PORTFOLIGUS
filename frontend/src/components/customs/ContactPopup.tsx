@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLang } from '@/hooks/useLang'
-import { useContent } from '@/hooks/useContent'
+import { profile } from '@portfolio/shared/content'
 import { CONTACT_ID } from '@/constants/sections'
 import { scrollToSection } from '@/utils/scroll'
 
@@ -20,7 +20,6 @@ type ContactPopupProps = {
  */
 export function ContactPopup({ open, onClose }: ContactPopupProps) {
   const { t, tr } = useLang()
-  const { profile } = useContent()
   const [copied, setCopied] = useState(false)
   const closeRef = useRef<HTMLButtonElement>(null)
 
@@ -104,7 +103,7 @@ export function ContactPopup({ open, onClose }: ContactPopupProps) {
 
         <div className="flex items-center gap-4">
           <img
-            src="/hero-portrait.jpg"
+            src="/photos/portrait-uniform.webp"
             alt=""
             width={120}
             height={120}

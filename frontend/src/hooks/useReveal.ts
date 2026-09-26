@@ -28,7 +28,9 @@ export function useReveal<T extends HTMLElement>() {
           observer.unobserve(entry.target)
         }
       },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.1 },
+      // threshold เป็นสัดส่วนของตัว element — section ที่สูงกว่าจอสิบเท่า (ผลงาน, แล็บ)
+      // ไม่มีวันโผล่ถึง 10% เลยค้างโปร่งใสทั้งก้อน ใช้ 0 แล้วให้ rootMargin คุมจังหวะแทน
+      { rootMargin: '0px 0px -10% 0px', threshold: 0 },
     )
 
     observer.observe(node)

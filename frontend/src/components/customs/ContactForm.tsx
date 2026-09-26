@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from 'react'
+import { useRef, useState, type FormEvent, type ReactNode } from 'react'
 import {
   CONTACT_LIMITS,
   validateContact,
@@ -6,8 +6,7 @@ import {
   type ContactPayload,
 } from '@portfolio/shared/contact'
 import { useLang } from '@/hooks/useLang'
-import { ApiError } from '@/apis/main.api'
-import { contactService } from '@/services/contact.service'
+import { ContactError, contactService } from '@/services/contact.service'
 import { cn } from '@/utils/cn'
 
 type Status = 'idle' | 'sending' | 'sent' | 'failed'
@@ -24,6 +23,8 @@ export function ContactForm() {
   const [errors, setErrors] = useState<ContactErrors>({})
   const [status, setStatus] = useState<Status>('idle')
   const [failure, setFailure] = useState('')
+  // เวลาที่เปิดฟอร์ม — บอทกรอกเสร็จในเสี้ยววินาที คนจริงใช้หลายวินาที (ดู spamGuard ใน contact.service)
+  const startedAt = useRef(Date.now())
 
   const set = (key: keyof ContactPayload) => (value: string) => {
     setValues((prev) => ({ ...prev, [key]: value }))
@@ -46,15 +47,21 @@ export function ContactForm() {
     setFailure('')
 
     try {
-      await contactService.submit(values)
+      await contactService.submit(values, startedAt.current)
       setStatus('sent')
       setValues(EMPTY)
+      startedAt.current = Date.now()
     } catch (error) {
       setStatus('failed')
+      const code = error instanceof ContactError ? error.code : ''
       setFailure(
-        error instanceof ApiError && error.code === 'rate_limited'
+        code === 'rate_limited'
           ? tr('form.rateLimited')
-          : tr('form.failed'),
+          : code === 'too_many_links'
+            ? tr('form.tooManyLinks')
+            : code === 'duplicate'
+              ? tr('form.duplicate')
+              : tr('form.failed'),
       )
     }
   }

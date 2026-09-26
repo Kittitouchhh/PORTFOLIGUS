@@ -68,7 +68,7 @@ export const profile = {
   ],
 
   availability: l('เปิดรับโอกาสใหม่', 'Open to opportunities'),
-  email: 'Kittitouch.dev@gmail.com',
+  email: 'kittitouch.dev@gmail.com',
   phone: '+66 81-399-6955',
 
   // TODO: ใส่ลิงก์จริงของตัวเอง แล้วลบอันที่ไม่มี
@@ -78,5 +78,6 @@ export const profile = {
   ],
 
   /** ไฟล์ CV วางไว้ที่ public/cv.pdf แล้วเปลี่ยนเป็น true */
-  resume: { enabled: false, href: '/cv.pdf' },
+  /** เรซูเม่ — หน้า HTML ใน frontend/public (ปุ่มอยู่ในจอติดต่อ) */
+  resume: { th: '/resume.html', en: '/resume-en.html' },
 } as const

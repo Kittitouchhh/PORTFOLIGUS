@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { HEADER_OFFSET } from '@/utils/scroll'
+import { headerOffset } from '@/utils/scroll'
 
 /**
  * บอกว่าตอนนี้อ่านค้างอยู่ section ไหน เอาไปไฮไลต์เมนู
@@ -27,7 +27,7 @@ export function useActiveSection(ids: readonly string[]) {
       }
 
       // เส้นวัดอยู่ใต้แถบบนเล็กน้อย — หัวข้อไหนผ่านเส้นนี้ไปแล้วเป็นตัวล่าสุดคือตัวที่กำลังอ่าน
-      const line = window.scrollY + HEADER_OFFSET + 24
+      const line = window.scrollY + headerOffset() + window.innerHeight * 0.25
       let current: string | null = null
 
       for (const id of ids) {

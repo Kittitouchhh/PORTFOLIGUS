@@ -1,7 +1,10 @@
 import { TOP_ID } from '@/constants/sections'
 
-/** ความสูงแถบบน (h-20 = 5rem) บวกที่หายใจอีกนิด ให้หัวข้อไม่ไปแนบใต้แถบพอดีเป๊ะ */
-export const HEADER_OFFSET = 96
+/**
+ * ระยะเผื่อด้านบนตอนเลื่อนไปหาหัวข้อ
+ * จอกว้างใช้แถบข้าง (ไม่มีแถบบน) เลยเผื่อแค่ที่หายใจ · จอแคบยังมีแถบบนสูง ~72px
+ */
+export const headerOffset = () => (typeof window !== 'undefined' && window.innerWidth >= 1024 ? 32 : 88)
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
@@ -15,7 +18,7 @@ export function scrollToSection(id: string) {
   const target = id === TOP_ID ? null : document.getElementById(id)
 
   const top = target
-    ? target.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET
+    ? target.getBoundingClientRect().top + window.scrollY - headerOffset()
     : 0
 
   window.scrollTo({
