@@ -21,6 +21,13 @@ export const TOP_ID = 'top'
 /** ปลายทางสุดท้ายของหน้า อยู่นอกเมนูหลักเพราะมีปุ่มของตัวเองอยู่แล้ว */
 export const CONTACT_ID = 'contact'
 
+/** รายการเมนูเลข 00–05 (หน้าแรก → หัวข้อ → ติดต่อ) ใช้ทั้งแถบเมนูซ้ายและเมนูมือถือ */
+export const NAV_ITEMS: readonly { id: string; key: UiKey; no: string }[] = [
+  { id: TOP_ID, key: 'nav.top', no: '00' },
+  ...SECTIONS.map((s, i) => ({ id: s.id, key: s.key, no: String(i + 1).padStart(2, '0') })),
+  { id: CONTACT_ID, key: 'nav.contact', no: String(SECTIONS.length + 1).padStart(2, '0') },
+]
+
 /** ใช้กับ scrollspy — ต้องเป็น reference เดิมทุกครั้ง ไม่งั้น effect จะรันใหม่ไม่จบ */
 export const SPY_IDS: readonly string[] = [
   ...SECTIONS.map((section) => section.id),

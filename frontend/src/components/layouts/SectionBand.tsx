@@ -2,19 +2,23 @@ import { useEffect, useRef, type ReactNode } from 'react'
 import { cn } from '@/utils/cn'
 
 /**
- * แถบพื้นหลังเต็มความกว้างของแต่ละ section (design-handoff 2.1b)
- * ⚠️ สีชุดนี้ยังชั่วคราว — เจ้าของกำลังเลือกแบบใหม่ ให้แก้ที่ TONES ที่เดียว
+ * แถบพื้นหลังเต็มความกว้างของแต่ละ section (design-handoff 7.2)
+ * ปก ครีม+จุด → การศึกษา/ตัวเลข card → ไทม์ไลน์ paper → เครื่องมือ card → แถบวิ่ง → งาน work
+ * → โปรเจคจบ card → วิธีทำงาน dark → ตัวตน paper → รูปจากงานจริง dark → ติดต่อ paper → footer ดำ
+ * บนพื้น dark: หัวข้อสีขาว ส่วนไฮไลต์ใช้ป้ายเหลืองทึบ (.mark-solid) ไม่ใช้ไฮไลต์ครึ่งบรรทัด
  * จอกว้าง: แถบสูงอย่างน้อย 1 จอ เนื้อหาอยู่กลางแนวตั้ง → ดูดแล้วบน/ล่างเว้นเท่ากันพอดี
  * แถบที่สูงกว่าจอได้คลาส is-tall (วัดจริงด้วย ResizeObserver) → แม่เหล็ก (useMagnetScroll) ดูดที่ท่อน .snap-part หรือชิดบนแทนกลางจอ
  *
  * ย่อให้พอดีจอ: ถ้าเนื้อหาสูงกว่าจอลบขอบบน/ล่าง (เช่น เบราว์เซอร์ซูม 110% หรือจอโน้ตบุ๊กเตี้ย)
  * ใช้ CSS zoom ย่อทั้งก้อนให้พอดี — ทำทีละท่อนถ้ามี .snap-part (ชดเชย min-height ของท่อนให้ยังเต็ม 1 จอ)
  */
-export type BandTone = 'paper' | 'card'
+export type BandTone = 'paper' | 'card' | 'work' | 'dark'
 
 const TONES: Record<BandTone, string> = {
-  paper: 'bg-page',
-  card: 'bg-card',
+  paper: 'bg-page border-t border-[#E4DCCC]',
+  card: 'bg-card border-t border-[#E4DCCC]',
+  work: 'bg-[#FFF5D6] border-t border-[#E4DCCC]',
+  dark: 'band-dark bg-ink text-page',
 }
 
 /** ขอบบน/ล่างขั้นต่ำเวลาย่อให้พอดีจอ (px) */
@@ -22,7 +26,7 @@ const MARGIN = 48
 /** ย่อได้ไม่ต่ำกว่านี้ — เล็กกว่านี้อ่านไม่ออก ปล่อยให้เลื่อนอ่านแทน */
 const MIN_ZOOM = 0.62
 
-const desktop = () => window.innerWidth >= 1024 && window.innerHeight >= 600
+const desktop = () => window.innerWidth >= 1100 && window.innerHeight >= 600
 
 /** ความสูงจริงของเนื้อหาในท่อน (ท่อนมี min-height 1 จอ เลยวัดจากลูกบนสุดถึงล่างสุดแทน) */
 function contentHeight(el: HTMLElement) {
@@ -106,7 +110,8 @@ export function SectionBand({
       ref={ref}
       id={id}
       data-no-magnet={noMagnet || undefined}
-      className={cn('section-band flow-root border-t border-[#E4DCCC] lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-center', TONES[tone], className)}
+      data-tone={tone}
+      className={cn('section-band flow-root lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-center', TONES[tone], className)}
     >
       <div ref={innerRef} className="w-full">
         {children}

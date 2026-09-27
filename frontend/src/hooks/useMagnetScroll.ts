@@ -10,12 +10,12 @@ import { useEffect } from 'react'
  * - ช่วงที่เนื้อหาสูงกว่าจอ = อ่านอิสระ ดูดเฉพาะตอนเหลืออีกไม่ถึง 35% ของจอจะถึงจุดถัดไป
  *
  * จุดดูด: แถบที่ไม่สูงเกินจอ (จัดกลาง) · ท่อน .snap-part ใน section สูง · section สูงที่ไม่มีท่อน (ชิดบน)
- * ปิดบนจอ < 1024px, จอเตี้ยกว่า 600px, ผู้ใช้ปิดแอนิเมชัน และตอนป็อปอัปเปิด (html.modal-open)
+ * ปิดบนจอ < 1100px, จอเตี้ยกว่า 600px, ผู้ใช้ปิดแอนิเมชัน และตอนป็อปอัปเปิด (html.modal-open)
  */
 export function useMagnetScroll() {
   useEffect(() => {
     const ok = () =>
-      window.innerWidth >= 1024 &&
+      window.innerWidth >= 1100 &&
       window.innerHeight >= 600 &&
       !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
       !document.documentElement.classList.contains('modal-open')

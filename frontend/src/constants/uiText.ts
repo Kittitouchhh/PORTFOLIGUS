@@ -8,11 +8,16 @@ import { l } from '@/types/i18n.type'
 export const ui = {
   'nav.about': l('ตัวตน', 'About'),
   'nav.project': l('โปรเจคจบ', 'Senior project'),
-  'nav.hello': l('ทักมา', 'Say hi'),
+  'nav.hello': l('ติดต่อเพิ่มเติม', 'Get in touch'),
   'nav.top': l('หน้าแรก', 'Home'),
   'nav.method': l('วิธีทำงาน', 'How I work'),
   'nav.work': l('งาน', 'Work'),
   'nav.contact': l('ติดต่อ', 'Contact'),
+  'nav.menuOpen': l('เปิดเมนู', 'Open menu'),
+  'nav.menuClose': l('ปิดเมนู', 'Close menu'),
+  'resume.view': l('ดูเรซูเม่', 'View resume'),
+  'resume.short': l('เรซูเม่', 'Resume'),
+  'resume.menu': l('ดูเรซูเม่ (PDF)', 'View resume (PDF)'),
 
   'contact.copy': l('คัดลอก', 'Copy'),
   'contact.copied': l('คัดลอกแล้ว', 'Copied'),
@@ -45,15 +50,7 @@ export const ui = {
   'intro.email': l('อีเมล', 'Email'),
   'intro.phone': l('โทรศัพท์', 'Phone'),
 
-  'contactCard.title': l('นามบัตรของกิตติธัช', 'Kittitouch — contact card'),
-  'contactCard.desc': l(
-    'ยินดีพูดคุยเรื่องตำแหน่งงาน โปรเจกต์ หรือความร่วมมือ ติดต่อผ่านแบบฟอร์มหรืออีเมลได้เลยครับ ผมจะตอบกลับภายใน 1–2 วันทำการ',
-    'Open to conversations about roles, projects or collaboration. Reach me through the form or by email and I will reply within 1–2 business days.',
-  ),
-  'contactCard.write': l('ส่งข้อความ', 'Send a message'),
-  'contactCard.close': l('ปิด', 'Close'),
 
-  'sticky.hello': l('ติดต่อ', 'Contact'),
 
   'lang.autoSwitched': l(
     'เปลี่ยนเป็นภาษาไทยให้แล้ว · กด TH/EN บนแถบบนเพื่อสลับกลับ',

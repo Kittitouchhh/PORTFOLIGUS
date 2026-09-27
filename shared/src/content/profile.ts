@@ -77,7 +77,4 @@ export const profile = {
     { label: 'LinkedIn', href: '#', handle: 'linkedin.com/in/…' },
   ],
 
-  /** ไฟล์ CV วางไว้ที่ public/cv.pdf แล้วเปลี่ยนเป็น true */
-  /** เรซูเม่ — หน้า HTML ใน frontend/public (ปุ่มอยู่ในจอติดต่อ) */
-  resume: { th: '/resume.html', en: '/resume-en.html' },
 } as const

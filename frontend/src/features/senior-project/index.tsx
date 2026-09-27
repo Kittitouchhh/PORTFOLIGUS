@@ -9,11 +9,14 @@ import type { L } from '@portfolio/shared/types'
 import { cn } from '@/utils/cn'
 
 /**
- * โปรเจคจบการศึกษา — DPU HUB (design-handoff 2.6 / DpuHub.dc.html)
- * โทนม่วง DPU เฉพาะส่วนนี้ · 4 บล็อก: หัว → ปัญหา+ตัวเลข → 4 บริการเป็นแท็บ → ตอนนี้อยู่ตรงไหน
+ * โปรเจคจบการศึกษา — DPU HUB (design-handoff 7.3 ข้อ 6 / V8{D,T,M}06Dpu)
+ * โทนม่วง DPU เฉพาะส่วนนี้ · 4 บล็อก: การ์ดม่วงใหญ่ → ปัญหา + ตัวเลข → 4 บริการเป็นแท็บ → ตอนนี้อยู่ตรงไหน
+ * จอคอม: การ์ดม่วง ข้อความซ้าย รูปขวา · ปัญหา + 86.7% + 26 ร้าน แถวเดียว · บริการ 4 คอลัมน์ · ความคืบหน้า 4 คอลัมน์
+ * ไอแพด: ปัญหาเต็มแถว + ตัวเลข 2 ช่อง · บริการ 2×2 · ความคืบหน้า 2 คอลัมน์
+ * มือถือ: หัวข้อจัดกลาง · รูปอยู่ใต้ข้อความ · ปัญหา/ตัวเลขเรียงลง
  */
 
-const PURPLE = '#6A2CF5'
+const PURPLE = '#5B2FD6'
 
 /** vision = ภาพที่อยากเห็นเมื่อบริการนี้สำเร็จ (เป็นข้อความ) */
 const SERVICES: { n: string; name: string; short: L; mvp: L; ok: L; vision: L }[] = [
@@ -34,13 +37,15 @@ const PROGRESS: { t: L; s: 0 | 1 | 2 }[] = [
 ]
 
 const txt = {
+  eyebrow: l('โปรเจคจบ', 'Capstone'),
   title: l('โปรเจคจบการศึกษา', 'Senior project'),
   hint: l('ไอเดีย + วิธีคิด', 'The idea + the thinking'),
   badge: l('โปรเจคจบการศึกษา', 'SENIOR PROJECT'),
   status: l('กำลังทำ · ขั้นออกแบบ mockup', 'In progress · mockup stage'),
+  studentAlt: l('นักศึกษา', 'A student'),
+  hubbyAlt: l('Hubby มาสคอต', 'Hubby, the mascot'),
   lead: l('อยากเปลี่ยนวิถีชีวิตคนในมหาวิทยาลัยให้ดีขึ้น', 'I want to make campus life better for everyone'),
   body: l('สั่งอาหารโดยไม่ต้องรอคิว ดูโต๊ะว่าง ติดตามรถชัตเทิล และฝากซื้อของภายในมหาวิทยาลัย — พัฒนาร่วมกับเพื่อนในทีม 3 คน', 'Order food without queuing, see free tables, track the shuttle, and get things delivered on campus — built with 3 teammates'),
-  hubby: l('ผม Hubby มาสคอตของระบบ!', 'I’m Hubby, the mascot!'),
   pStart: l('เริ่มจากปัญหาโรงอาหาร', 'It started with the canteen'),
   pHead: l('ผู้ใช้บริการหนาแน่น รออาหารนาน และไม่ทราบว่าโต๊ะใดว่าง ทั้งที่ช่วงพักมีเวลาจำกัด', 'Crowded, long waits for food, no idea which tables are free — with only a short break'),
   pBodyA: l('เมื่อพิจารณาลึกลงไป ปัญหาอื่นภายในมหาวิทยาลัยก็มีต้นเหตุเดียวกัน คือ ', 'Looking deeper, other campus problems share one cause: '),
@@ -66,140 +71,157 @@ export function SeniorProject() {
   const cur = SERVICES[svc]
 
   return (
-    <SectionBand tone="paper" className="py-12 lg:py-[60px]">
-    <Container>
-      <section id="senior-project" ref={ref} className="reveal flex scroll-mt-10 flex-col gap-6">
-        <div className="snap-part flex flex-col gap-6">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h2 className="text-[clamp(1.9rem,3.4vw,2.75rem)] leading-[1.25] font-bold">
-            <span className="mark px-1.5">{t(txt.title)}</span>
-          </h2>
-          <span className="font-hand text-[18px] text-ink-2">{t(txt.hint)}</span>
-        </div>
-
-        {/* หัว */}
-        <Reveal variant="pop" className="relative grid overflow-hidden rounded-[32px] border-2 border-ink bg-[#F1EBFF] shadow-[8px_8px_0_var(--ink)] lg:h-[380px] lg:grid-cols-[minmax(0,1fr)_26rem]">
-          <div className="flex flex-col gap-3.5 px-6 pt-8 pb-8 sm:px-11 sm:pt-10">
-            <div className="flex flex-wrap gap-2.5">
-              <span className="font-brand rounded-full px-3.5 py-1.5 text-[13px] font-extrabold tracking-[0.1em] text-white" style={{ background: PURPLE }}>{t(txt.badge)}</span>
-              <span className="inline-flex items-center gap-2 rounded-full border-[1.5px] border-ink bg-card px-3.5 py-1 text-[13px] font-bold">
-                <span className="size-2 rounded-full bg-[#F5B400]" />
-                {t(txt.status)}
-              </span>
-            </div>
-            <h3 className="font-brand mt-1.5 text-[clamp(3.2rem,7vw,4.75rem)] leading-[0.95] font-extrabold tracking-[-0.03em] !text-[#3B1A9E]">DPU HUB</h3>
-            <span className="text-[clamp(1.25rem,2.2vw,1.6rem)] leading-[1.35] font-bold">{t(txt.lead)}</span>
-            <span className="max-w-[35rem] text-[16.5px] leading-[1.7] text-[#3E3B35]">{t(txt.body)}</span>
-          </div>
-          <div className="relative h-72 lg:h-auto">
-            <span aria-hidden="true" className="absolute -top-10 -right-16 size-[23.75rem] rounded-full bg-[#DCCFFF]" />
-            <img src="/dpu-hub/student.webp" alt="" className="absolute right-9 -bottom-1.5 h-[17rem] lg:h-[340px]" />
-            <img src="/dpu-hub/hubby.webp" alt="Hubby" className="anim-float absolute bottom-2 left-2 w-32 lg:left-0 lg:w-[170px]" />
-            <span className="font-hand absolute top-6 left-5 -rotate-[4deg] rounded-[14px_14px_14px_4px] border-[1.5px] border-ink bg-card px-3 py-1 text-[16px] lg:top-[70px]">{t(txt.hubby)}</span>
-          </div>
-        </Reveal>
-
-        {/* ปัญหา */}
-        <Reveal stagger className="grid gap-4 lg:grid-cols-[1.2fr_1fr_1fr]">
-          <div className="flex flex-col gap-2.5 rounded-3xl bg-ink px-7 py-6 text-page">
-            <span className="font-hand text-[18px] text-yellow">{t(txt.pStart)}</span>
-            <span className="text-[20px] leading-normal font-bold">{t(txt.pHead)}</span>
-            <span className="text-[15px] leading-[1.7] text-[#D6D0C4]">
-              {t(txt.pBodyA)}
-              <b className="text-page">{t(txt.pBodyB)}</b>
-              {t(txt.pBodyC)}
-            </span>
-          </div>
-          <div className="flex -rotate-1 flex-col gap-2 rounded-3xl border-2 border-ink bg-yellow px-7 py-6 shadow-[5px_5px_0_var(--ink)]">
-            <span className="font-brand text-[62px] leading-none font-extrabold">86.7%</span>
-            <span className="text-[15.5px] leading-relaxed">{t(txt.survey)}</span>
-          </div>
-          <div className="flex rotate-1 flex-col gap-2 rounded-3xl border-2 border-ink bg-card px-7 py-6 shadow-[5px_5px_0_var(--ink)]">
-            <span className="font-brand text-[62px] leading-none font-extrabold">
-              26<span className="text-[22px]"> {t(txt.shops)}</span>
-            </span>
-            <span className="text-[15.5px] leading-relaxed">{t(txt.shopsNote)}</span>
-          </div>
-        </Reveal>
-
-        </div>
-
-        {/* 4 บริการ + ความคืบหน้า */}
-        <div className="snap-part flex flex-col gap-6">
-        <Reveal className="flex flex-col gap-5 rounded-[28px] border-2 border-ink bg-card px-6 py-7 sm:px-8">
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <span className="text-[clamp(1.3rem,2.2vw,1.6rem)] font-bold">{t(txt.svc)}</span>
-            <span className="font-hand text-[17px] text-ink-2">{t(txt.svcHint)}</span>
-          </div>
-          <div role="tablist" className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-            {SERVICES.map((s, i) => {
-              const on = i === svc
-              return (
-                <button
-                  key={s.n}
-                  type="button"
-                  role="tab"
-                  aria-selected={on}
-                  onClick={() => setSvc(i)}
-                  className={cn('flex flex-col items-start gap-1 rounded-[18px] border-2 border-ink px-4 py-4 text-left transition', on ? '-translate-y-[3px] text-white shadow-[4px_4px_0_var(--ink)]' : 'bg-card hover:-translate-y-0.5')}
-                  style={on ? { background: PURPLE } : undefined}
-                >
-                  <span className="font-brand text-[14px] font-extrabold opacity-70">{s.n}</span>
-                  <span className="text-[clamp(1rem,1.5vw,1.2rem)] font-bold">{s.name}</span>
-                  <span className="text-[14px] leading-normal opacity-85">{t(s.short)}</span>
-                </button>
-              )
-            })}
-          </div>
-          {/* ซ้าย MVP (+ ใครต้องไฟเขียว) · ขวา ภาพที่อยากเห็นเมื่อสำเร็จ (ข้อความ) */}
-          <div key={svc} className="anim-rise grid items-stretch gap-4 sm:grid-cols-2">
-            <div className="flex flex-col gap-3 rounded-[18px] bg-[#F1EBFF] px-5 py-5">
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[13px] font-bold tracking-[0.04em] text-[#5A3FB5]">{t(txt.mvp)}</span>
-                <span className="text-[17px] leading-relaxed font-semibold">{t(cur.mvp)}</span>
+    <SectionBand tone="card" className="pt-11 pb-[52px] md:pt-[72px] md:pb-20 lg:pt-24 lg:pb-[104px]">
+      <Container>
+        <section id="senior-project" ref={ref} className="reveal flex scroll-mt-10 flex-col gap-4 md:gap-[22px] lg:gap-7">
+          <div className="snap-part flex flex-col gap-4 md:gap-[22px] lg:gap-7">
+            {/* หัวข้อ — มือถือจัดกลาง */}
+            <div className="flex flex-col items-center gap-1.5 text-center md:flex-row md:items-end md:justify-between md:text-left">
+              <div className="flex flex-col items-center gap-2 md:items-start">
+                <p className="font-brand inline-flex items-center gap-2.5 text-[12px] font-extrabold tracking-[0.14em] text-ink-2 md:text-[12.5px] lg:text-[13px]">
+                  02 <span aria-hidden="true" className="h-0.5 w-[26px] bg-ink-2" /> {t(txt.eyebrow)}
+                </p>
+                <h2 className="text-[23px] leading-[1.32] font-bold tracking-[-0.01em] md:text-[31px] lg:text-[40px]">
+                  <span className="mark px-1 [box-decoration-break:clone]">{t(txt.title)}</span>
+                </h2>
               </div>
-              <div className="mt-auto flex flex-col gap-1 border-t-[1.5px] border-dashed border-[#CBB8FF] pt-3">
-                <span className="text-[12.5px] font-bold tracking-[0.04em] text-ink-2">{t(txt.ok)}</span>
-                <span className="text-[14.5px] leading-relaxed">{t(cur.ok)}</span>
-              </div>
+              <span className="font-hand text-[15px] text-ink-2 md:text-[16px] lg:text-[17px]">{t(txt.hint)}</span>
             </div>
-            <div className="flex flex-col gap-3 rounded-[18px] border-2 border-dashed px-5 py-5" style={{ borderColor: PURPLE }}>
-              <span className="self-start rounded-full px-3 py-1 text-[12.5px] font-bold text-white" style={{ background: PURPLE }}>
-                {t(txt.vision)}
-              </span>
-              <p className="font-hand my-auto text-[clamp(1.3rem,1.9vw,1.6rem)] leading-[1.45] text-[#3B1A9E]">“{t(cur.vision)}”</p>
-            </div>
-          </div>
-        </Reveal>
 
-        {/* ความคืบหน้า */}
-        <Reveal className="relative flex flex-col gap-4.5 rounded-[28px] bg-ink px-6 pt-7 pb-8 text-page sm:px-8">
-          <div className="flex flex-wrap items-center justify-between gap-3 pr-24">
-            <span className="text-[22px] font-bold">{t(txt.where)}</span>
-            <span className="font-hand text-[clamp(1.1rem,2vw,1.4rem)] text-yellow">{t(txt.success)}</span>
-          </div>
-          <ol className="stagger grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
-            {PROGRESS.map((p, i) => (
-              <li key={i} className="flex flex-col gap-2">
-                <span
-                  className="block h-2.5 rounded-full"
-                  style={{
-                    background: p.s === 2 ? '#FFC940' : p.s === 1 ? 'repeating-linear-gradient(45deg,#FFC940 0 8px,#A58BFF 8px 16px)' : '#3A3833',
-                  }}
-                />
-                <span className={cn('text-[14px] leading-snug', p.s === 1 ? 'font-bold text-yellow' : p.s === 2 ? 'font-semibold text-page' : 'font-medium text-ink-3')}>
-                  {p.s === 2 ? '✓ ' : p.s === 1 ? '● ' : ''}
-                  {t(p.t)}
-                  {p.s === 1 && t(txt.nowTag)}
+            {/* การ์ดม่วงใหญ่ — มือถือรูปอยู่ใต้ข้อความ */}
+            <Reveal variant="pop" className="relative flex flex-col overflow-hidden rounded-[28px] border-2 border-ink bg-[#EEE8FF] shadow-[6px_6px_0_var(--ink)] md:flex-row">
+              <div className="relative z-[2] flex min-w-0 flex-col items-center gap-3 px-[18px] pt-[22px] text-center md:flex-1 md:items-start md:py-7 md:pr-0 md:pl-7 md:text-left lg:py-9 lg:pl-10">
+                <div className="flex flex-wrap justify-center gap-2 md:justify-start">
+                  <span className="rounded-full px-3 py-[5px] text-[12.5px] font-bold text-card" style={{ background: PURPLE }}>
+                    {t(txt.badge)}
+                  </span>
+                  <span className="rounded-full border-[1.5px] border-ink bg-card px-3 py-[5px] text-[12.5px] font-bold">
+                    <span aria-hidden="true">● </span>
+                    {t(txt.status)}
+                  </span>
+                </div>
+                <h3 className="font-brand text-[46px] leading-none font-extrabold tracking-[-0.02em] md:text-[58px] lg:text-[76px]" style={{ color: PURPLE }}>
+                  DPU HUB
+                </h3>
+                <span className="text-[15.5px] leading-[1.45] font-bold md:text-[17px] lg:text-[20px]">{t(txt.lead)}</span>
+                <span className="text-[13.5px] leading-[1.7] text-[#3E3B35] md:text-[14px] lg:text-[15px]">{t(txt.body)}</span>
+              </div>
+              <div className="relative h-[250px] shrink-0 md:h-auto md:w-[300px] lg:w-[460px]">
+                <span aria-hidden="true" className="absolute -bottom-[150px] left-1/2 -ml-[150px] size-[300px] rounded-full bg-[#D9CCFF] md:-right-[60px] md:-bottom-[120px] md:left-auto md:ml-0 md:size-[420px]" />
+                <img src="/dpu-hub/student.webp" alt={t(txt.studentAlt)} className="absolute bottom-0 left-1/2 -ml-2.5 h-[230px] w-auto max-w-none md:right-10 md:left-auto md:ml-0 md:h-[250px] lg:h-[330px]" />
+                <img src="/dpu-hub/hubby.webp" alt={t(txt.hubbyAlt)} className="anim-float absolute bottom-2.5 left-1/2 -ml-[130px] h-[110px] w-auto max-w-none md:right-[170px] md:bottom-4 md:left-auto md:ml-0 lg:right-[250px] lg:h-[150px]" />
+              </div>
+            </Reveal>
+
+            {/* ปัญหา (ดำ) + 86.7% + 26 ร้าน — คอม 1 แถว / ไอแพด ปัญหาเต็มแถว + ตัวเลข 2 ช่อง / มือถือ เรียงลง */}
+            <Reveal stagger className="grid gap-3 md:grid-cols-2 md:gap-3.5 lg:grid-cols-[1.4fr_1fr_1fr] lg:gap-[18px]">
+              <div className="flex flex-col gap-2 rounded-[22px] bg-ink p-[22px] text-card md:col-span-2 lg:col-span-1">
+                <span className="self-start rounded-full bg-yellow px-2.5 py-[3px] text-[12px] font-extrabold text-ink">{t(txt.pStart)}</span>
+                <span className="text-[16px] leading-normal font-bold">{t(txt.pHead)}</span>
+                <span className="text-[13.5px] leading-[1.65] text-[#C9C3B6]">
+                  {t(txt.pBodyA)}
+                  <b className="text-card">{t(txt.pBodyB)}</b>
+                  {t(txt.pBodyC)}
                 </span>
-              </li>
-            ))}
-          </ol>
-          <img src="/dpu-hub/hubby-happy.webp" alt="" aria-hidden="true" className="anim-float absolute -top-16 right-7 w-24" />
-        </Reveal>
-        </div>
-      </section>
-    </Container>
+              </div>
+              <div className="flex flex-col gap-1.5 rounded-[22px] border-2 border-ink bg-yellow p-5 shadow-[4px_4px_0_var(--ink)]">
+                <span className="font-brand text-[40px] leading-none font-extrabold lg:text-[48px]">86.7%</span>
+                <span className="text-[13px] leading-[1.6] text-[#3E3B35]">{t(txt.survey)}</span>
+              </div>
+              <div className="flex flex-col gap-1.5 rounded-[22px] border-2 border-ink bg-card p-5 shadow-[4px_4px_0_var(--ink)]">
+                <span className="flex items-baseline gap-1.5">
+                  <span className="font-brand text-[40px] leading-none font-extrabold lg:text-[48px]">26</span>
+                  <span className="text-[14px] font-bold">{t(txt.shops)}</span>
+                </span>
+                <span className="text-[13px] leading-[1.6] text-[#3E3B35]">{t(txt.shopsNote)}</span>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* 4 บริการ + ความคืบหน้า */}
+          <div className="snap-part flex flex-col gap-4 md:gap-[22px] lg:gap-7">
+            <Reveal className="flex flex-col gap-3.5 rounded-3xl border-2 border-ink bg-card p-4 md:p-[22px]">
+              <div className="flex flex-col items-center gap-2 text-center md:flex-row md:items-baseline md:justify-between md:text-left">
+                <span className="text-[16px] font-bold md:text-[18px]">{t(txt.svc)}</span>
+                <span className="text-[13px] text-ink-2">{t(txt.svcHint)}</span>
+              </div>
+              {/* 4 บริการ: คอม 4 คอลัมน์ ที่เหลือ 2×2 */}
+              <div role="tablist" aria-label={t(txt.svc)} className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
+                {SERVICES.map((s, i) => {
+                  const on = i === svc
+                  return (
+                    <button
+                      key={s.n}
+                      type="button"
+                      role="tab"
+                      id={`dpu-tab-${i}`}
+                      aria-selected={on}
+                      aria-controls="dpu-panel"
+                      onClick={() => setSvc(i)}
+                      className={cn(
+                        'flex min-w-0 flex-col items-start gap-1 rounded-2xl p-3.5 text-left transition',
+                        on ? 'border-2 border-ink text-card shadow-[3px_3px_0_var(--ink)]' : 'border-[1.5px] border-line bg-card hover:-translate-y-0.5 hover:border-ink',
+                      )}
+                      style={on ? { background: PURPLE } : undefined}
+                    >
+                      <span className="font-code text-[11.5px] opacity-80">{s.n}</span>
+                      <span className="text-[14px] leading-[1.3] font-bold lg:text-[15px]">{s.name}</span>
+                      <span className={cn('text-[12.5px] leading-normal', on ? 'text-[#E6DEFF]' : 'text-ink-2')}>{t(s.short)}</span>
+                    </button>
+                  )
+                })}
+              </div>
+              {/* MVP · ใครต้องอนุมัติ · ภาพที่อยากเห็น — คอม 3 คอลัมน์ ที่เหลือเรียงลง */}
+              <div key={svc} id="dpu-panel" role="tabpanel" aria-labelledby={`dpu-tab-${svc}`} className="anim-rise grid gap-3.5 rounded-2xl bg-[#EEE8FF] px-[18px] py-4 lg:grid-cols-3">
+                {[
+                  { k: txt.mvp, v: t(cur.mvp) },
+                  { k: txt.ok, v: t(cur.ok) },
+                  { k: txt.vision, v: `“${t(cur.vision)}”` },
+                ].map((x, i) => (
+                  <div key={i} className="flex flex-col gap-[3px]">
+                    <span className="text-[12px] font-extrabold" style={{ color: PURPLE }}>
+                      {t(x.k)}
+                    </span>
+                    <span className="text-[13.5px] leading-[1.6]">{x.v}</span>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+
+            {/* ตอนนี้อยู่ตรงไหน — คอม 4 คอลัมน์ / ที่เหลือ 2 คอลัมน์ */}
+            <Reveal className="relative flex flex-col gap-3.5 rounded-3xl bg-ink px-[18px] py-5 text-card md:px-6 md:py-[22px]">
+              <div className="flex flex-col gap-2 pr-16 lg:flex-row lg:items-baseline lg:justify-between lg:pr-20">
+                <span className="text-[18px] font-bold">{t(txt.where)}</span>
+                <span className="text-[13.5px] text-yellow">{t(txt.success)}</span>
+              </div>
+              <ol className="stagger grid grid-cols-2 gap-x-2.5 gap-y-3 lg:grid-cols-4">
+                {PROGRESS.map((p, i) => (
+                  <li key={i} className={cn('flex items-center gap-2 text-[13px]', p.s === 1 ? 'font-bold text-yellow' : p.s === 2 ? 'text-card' : 'text-ink-3')}>
+                    {p.s === 2 ? (
+                      <span aria-hidden="true" className="grid size-5 shrink-0 place-items-center rounded-full bg-[#1F9D55]">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFDF8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="m5 12 5 5 9-10" />
+                        </svg>
+                      </span>
+                    ) : p.s === 1 ? (
+                      <span aria-hidden="true" className="size-5 shrink-0 rounded-full bg-yellow shadow-[0_0_0_4px_rgba(255,201,64,.3)]" />
+                    ) : (
+                      <span aria-hidden="true" className="size-5 shrink-0 rounded-full border-2 border-dashed border-[#6E6A62]" />
+                    )}
+                    <span className="min-w-0">
+                      {p.s === 2 && <span className="sr-only">✓ </span>}
+                      {t(p.t)}
+                      {p.s === 1 && t(txt.nowTag)}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+              <img src="/dpu-hub/hubby-happy.webp" alt="" aria-hidden="true" className="anim-float absolute -top-[46px] right-4 h-[70px] w-auto" />
+            </Reveal>
+          </div>
+        </section>
+      </Container>
     </SectionBand>
   )
 }
+

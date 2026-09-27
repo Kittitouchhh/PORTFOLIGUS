@@ -77,7 +77,7 @@ export const CASES: Case[] = [
   {
     num: '03',
     demo: 'os',
-    tint: '#FFE7A3',
+    tint: '#E5E3F6',
     code: l('ระบบติดตามงานส่งนอก', 'Outsourced-work tracking'),
     context: l('ฝ่ายผลิต · ฝ่ายบัญชี', 'Production · accounting'),
     title: l('ทราบทันทีว่าสินค้าอยู่ที่ร้านภายนอก หรือส่งกลับมาแล้ว', 'Know at once whether the goods are at the outside shop or back with us'),

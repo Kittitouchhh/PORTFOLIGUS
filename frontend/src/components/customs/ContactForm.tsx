@@ -13,9 +13,15 @@ type Status = 'idle' | 'sending' | 'sent' | 'failed'
 
 const EMPTY: ContactPayload = { name: '', email: '', message: '', website: '' }
 
-/** ช่องกรอกเป็นเส้นใต้เส้นเดียว ไม่มีกล่อง — ให้เข้ากับดีไซน์ที่ใช้เส้นเป็นหลัก */
+/**
+ * ช่องกรอกเป็นกล่องขาวขอบดำ สูง 52 (design-handoff 7.3 ข้อ 10 · V8*10Contact)
+ * มือถือใช้ตัว 16px กัน iOS ซูมเข้าเองตอนแตะช่อง · ไอแพดขึ้นไป 14px ตามแบบ
+ */
 const field =
-  'w-full border-b border-line bg-transparent pb-2.5 text-[15px] text-ink placeholder:text-ink-3 transition-colors focus:border-ink focus:outline-none'
+  'w-full rounded-xl border-[1.5px] border-ink bg-card px-3.5 text-[16px] text-ink placeholder:text-ink-3 transition-shadow focus:shadow-[3px_3px_0_var(--ink)] focus:outline-none md:text-[14px]'
+
+/** สีแจ้งผิด — แดงเข้มพออ่านออกบนพื้นเหลืองอ่อน */
+const errorBorder = 'border-[#B42318]'
 
 export function ContactForm() {
   const { t, tr } = useLang()
@@ -68,13 +74,13 @@ export function ContactForm() {
 
   if (status === 'sent') {
     return (
-      <div className="border-t border-line pt-10">
-        <p className="display text-[clamp(2rem,5vw,3rem)]">✓</p>
-        <p className="mt-4 max-w-md leading-relaxed text-ink-2">{tr('form.success')}</p>
+      <div className="flex flex-col items-start gap-3 py-2">
+        <p className="display text-[clamp(2rem,5vw,3rem)] leading-none">✓</p>
+        <p className="max-w-md text-[14px] leading-relaxed text-ink-2 md:text-[15px]">{tr('form.success')}</p>
         <button
           type="button"
           onClick={() => setStatus('idle')}
-          className="pill pill-outline pill-sm mt-7"
+          className="mt-2 inline-flex min-h-11 items-center rounded-full border-2 border-ink bg-card px-5 text-[13.5px] font-bold text-ink transition-transform hover:-translate-y-0.5"
         >
           {tr('form.successAgain')}
         </button>
@@ -83,7 +89,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={submit} noValidate className="flex flex-col gap-9">
+    <form onSubmit={submit} noValidate className="flex flex-col gap-3">
       <Field id="name" label={tr('form.name')} error={errors.name && t(errors.name)}>
         <input
           id="name"
@@ -94,7 +100,7 @@ export function ContactForm() {
           value={values.name}
           onChange={(e) => set('name')(e.target.value)}
           placeholder={tr('form.namePlaceholder')}
-          className={cn(field, errors.name && 'border-accent')}
+          className={cn(field, 'h-[52px]', errors.name && errorBorder)}
         />
       </Field>
 
@@ -108,7 +114,7 @@ export function ContactForm() {
           value={values.email}
           onChange={(e) => set('email')(e.target.value)}
           placeholder={tr('form.emailPlaceholder')}
-          className={cn(field, errors.email && 'border-accent')}
+          className={cn(field, 'h-[52px]', errors.email && errorBorder)}
         />
       </Field>
 
@@ -116,7 +122,6 @@ export function ContactForm() {
         id="message"
         label={tr('form.message')}
         error={errors.message && t(errors.message)}
-        hint={`${values.message.length} / ${CONTACT_LIMITS.message.max}`}
       >
         <textarea
           id="message"
@@ -126,7 +131,8 @@ export function ContactForm() {
           value={values.message}
           onChange={(e) => set('message')(e.target.value)}
           placeholder={tr('form.messagePlaceholder')}
-          className={cn(field, 'resize-y', errors.message && 'border-accent')}
+          aria-describedby="message-count"
+          className={cn(field, 'block h-[120px] min-h-[120px] resize-y py-3', errors.message && errorBorder)}
         />
       </Field>
 
@@ -144,18 +150,28 @@ export function ContactForm() {
         />
       </div>
 
-      <div className="flex flex-wrap items-center gap-5">
-        <button type="submit" disabled={status === 'sending'} className="pill pill-solid">
+      {/* ซ้าย: ตัวนับตัวอักษร · ขวา: ปุ่มส่ง (ดำ สูง 48) */}
+      <div className="flex items-center justify-between gap-3">
+        <span id="message-count" className="font-mono text-[12px] text-ink-2 tabular-nums">
+          {values.message.length} / {CONTACT_LIMITS.message.max}
+        </span>
+        <button
+          type="submit"
+          disabled={status === 'sending'}
+          className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full border-2 border-ink bg-ink px-5 text-[14px] font-bold text-card transition-opacity hover:opacity-85 disabled:opacity-50"
+        >
           {status === 'sending' ? tr('form.submitting') : tr('form.submit')}
-          <span aria-hidden="true">↗</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="shrink-0">
+            <path d="M4 12 20 4l-6 16-3-7z" />
+          </svg>
         </button>
-
-        {status === 'failed' && (
-          <p role="alert" className="text-[13px] text-accent">
-            {failure}
-          </p>
-        )}
       </div>
+
+      {status === 'failed' && (
+        <p role="alert" className="text-[13px] font-semibold text-[#B42318]">
+          {failure}
+        </p>
+      )}
     </form>
   )
 }
@@ -164,26 +180,21 @@ function Field({
   id,
   label,
   error,
-  hint,
   children,
 }: {
   id: string
   label: string
   error?: string
-  hint?: string
   children: ReactNode
 }) {
   return (
-    <div>
-      <div className="mb-3 flex items-baseline justify-between gap-3">
-        <label htmlFor={id} className="eyebrow">
-          {label}
-        </label>
-        {hint && <span className="num text-[11px]">{hint}</span>}
-      </div>
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={id} className="text-[13px] font-bold text-ink">
+        {label}
+      </label>
       {children}
       {error && (
-        <p role="alert" className="mt-2 text-[13px] text-accent">
+        <p role="alert" className="text-[13px] font-semibold text-[#B42318]">
           {error}
         </p>
       )}

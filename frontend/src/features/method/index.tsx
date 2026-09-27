@@ -9,8 +9,10 @@ import type { L } from '@portfolio/shared/types'
 import { cn } from '@/utils/cn'
 
 /**
- * 02 — วิธีทำงาน (ดีไซน์ v4) · การ์ดดำใบใหญ่
- * 7 วงกลมบนเส้นประคดเคี้ยว กดแต่ละขั้นแล้วการ์ดขาวด้านล่างเปลี่ยนเนื้อหา
+ * 03 — วิธีทำงาน (ดีไซน์ v8 · V8*07Method) · พื้นดำทั้งแถบ (SectionBand tone="dark")
+ * จอคอม/ไอแพด: วงกลม 7 ขั้นเรียงแถวบนเส้นประ + การ์ดรายละเอียดขาวด้านล่าง
+ * มือถือ: รายการแนวตั้งแบบ accordion — ขั้นที่เลือกกางเป็นการ์ดขาว มีป้าย "ได้: …"
+ * วงกลม: ขั้นที่ผ่านมาแล้ว = ขอบขาว · ขั้นที่เลือก = เหลือง · ขั้นถัดไป = ขอบเทาจาง
  */
 
 const STEPS: { n: string; title: L; desc: L; out: L }[] = [
@@ -30,6 +32,18 @@ const txt = {
   sub: l('และยังฝึกฝน เรียนรู้ เพื่อพัฒนาตนเองอยู่ทุกวัน · กดแต่ละขั้นตอนเพื่อดูรายละเอียด', 'Still practising and learning every day · tap each step'),
 }
 
+/** สีวงกลมตามสถานะ: ผ่านแล้ว / ที่เลือก / ยังไม่ถึง */
+function dotCls(i: number, step: number) {
+  if (i === step) return 'bg-yellow text-ink shadow-[0_0_0_6px_rgba(255,201,64,.25)]'
+  if (i < step) return 'border-[1.5px] border-card bg-[#2C2A26] text-card'
+  return 'border-[1.5px] border-[#5B574F] bg-ink text-ink-3 group-hover:border-yellow'
+}
+
+/** ป้าย "ได้: …" */
+function OutPill({ children, className }: { children: string; className?: string }) {
+  return <span className={cn('self-start rounded-full border-[1.5px] border-accent bg-[#FFF5D6] font-bold text-ink', className)}>{children}</span>
+}
+
 export function Method() {
   const { t } = useLang()
   const ref = useReveal<HTMLElement>()
@@ -37,53 +51,98 @@ export function Method() {
   const cur = STEPS[step]
 
   return (
-    <SectionBand tone="card" className="py-12 lg:py-[60px]">
+    <SectionBand tone="dark" className="py-11 md:pt-[72px] md:pb-20 lg:pt-24 lg:pb-[104px]">
     <Container>
-      <section id="method" ref={ref} className="reveal flex scroll-mt-10 flex-col gap-9 rounded-[36px] bg-ink p-6 text-page sm:p-12">
-        <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1fr)_16rem]">
-          <div className="flex flex-col gap-3">
-            <p className="font-brand text-[15px] font-extrabold tracking-[0.12em] text-[#B5AFA3]">
-              02 <span aria-hidden="true" className="chapter-line mx-1" /> {t(txt.eyebrow)}
-            </p>
-            <h2 className="text-[clamp(2.2rem,5vw,3.75rem)] leading-[1.12] font-bold tracking-[-0.02em] !text-page">
-              {t(txt.t1)}
-              <span className="text-yellow">{t(txt.t2)}</span>
-            </h2>
-            <p className="text-[18px] leading-relaxed text-[#D6D0C4]">{t(txt.sub)}</p>
-          </div>
-          <img src="/stickers/gus-chin.webp" alt="" aria-hidden="true" className="anim-float hidden w-60 justify-self-end lg:block" />
+      <section id="method" ref={ref} className="reveal relative flex scroll-mt-10 flex-col gap-4 text-card md:gap-[22px] lg:gap-7">
+        <img
+          src="/stickers/gus-chin.webp"
+          alt=""
+          aria-hidden="true"
+          className="anim-float pointer-events-none absolute -top-6 -right-3 h-[74px] md:-top-6 md:right-0 md:h-[110px] lg:-top-9 lg:right-3 lg:h-[150px]"
+        />
+        <div className="relative flex flex-col items-center gap-2.5 text-center md:items-start md:text-left">
+          <p className="font-brand text-[12px] font-extrabold tracking-[0.14em] text-[#C9C3B6] md:text-[12.5px] lg:text-[13px]">
+            03 <span aria-hidden="true" className="chapter-line mx-1" /> {t(txt.eyebrow)}
+          </p>
+          <h2 className="px-10 text-[23px] leading-[1.32] font-bold tracking-[-0.01em] md:px-0 md:pr-32 md:text-[31px] lg:text-[40px]">
+            {t(txt.t1)}
+            <span className="text-yellow">{t(txt.t2)}</span>
+          </h2>
+          <p className="text-[14px] leading-relaxed text-[#C9C3B6] md:text-[15px] lg:text-[16px]">{t(txt.sub)}</p>
         </div>
 
-        {/* 6 ขั้นบนเส้นประ */}
-        <Reveal stagger className="relative grid grid-cols-3 gap-y-6 pt-3 sm:grid-cols-4 sm:gap-3 lg:grid-cols-7">
-          <svg aria-hidden="true" viewBox="0 0 1000 40" preserveAspectRatio="none" fill="none" className="absolute inset-x-0 top-[44px] hidden h-10 w-full lg:block">
-            <path d="M40 20 C 140 -4, 220 44, 320 20 S 520 -4, 620 20 S 820 44, 960 20" stroke="#FFC940" strokeWidth="3" strokeDasharray="2 12" strokeLinecap="round" />
-          </svg>
+        {/* จอคอม/ไอแพด: 7 ขั้นเรียงแถวบนเส้นประ */}
+        <Reveal stagger className="relative mt-2.5 hidden grid-cols-7 items-start gap-1.5 md:grid">
+          <span
+            aria-hidden="true"
+            className="absolute inset-x-[7%] top-[27px] h-0.5"
+            style={{ background: 'repeating-linear-gradient(90deg, #5B574F 0 6px, transparent 6px 11px)' }}
+          />
           {STEPS.map((s, i) => {
             const on = i === step
             return (
-              <button key={s.n} type="button" aria-pressed={on} onClick={() => setStep(i)} className="group relative flex flex-col items-center gap-3">
-                <span
-                  className={cn(
-                    'font-brand relative z-10 grid size-16 place-items-center rounded-full text-[20px] font-extrabold transition-all duration-300',
-                    on ? 'scale-[1.18] border-[3px] border-page bg-yellow text-ink' : 'border-2 border-[#55524A] bg-[#2A2925] text-page group-hover:border-yellow',
-                  )}
-                >
-                  {s.n}
+              <button key={s.n} type="button" aria-pressed={on} onClick={() => setStep(i)} className="group relative flex min-w-0 flex-col items-center gap-2 text-center">
+                <span className="grid h-14 place-items-center">
+                  <span
+                    className={cn(
+                      'relative z-10 grid place-items-center rounded-full font-code text-[15px] font-extrabold transition-all duration-300',
+                      on ? 'size-14' : 'size-[46px]',
+                      dotCls(i, step),
+                    )}
+                  >
+                    {s.n}
+                  </span>
                 </span>
-                <span className={cn('text-center text-[15px] leading-snug font-bold transition-colors sm:text-[16px]', on ? 'text-yellow' : 'text-[#D6D0C4]')}>{t(s.title)}</span>
+                <span className={cn('text-[12px] leading-[1.35] font-bold transition-colors lg:text-[13px]', on ? 'text-yellow' : 'text-[#E9E4DA] group-hover:text-card')}>{t(s.title)}</span>
               </button>
             )
           })}
         </Reveal>
 
-        <div key={step} className="anim-rise grid items-center gap-4 rounded-3xl bg-card px-6 py-6 text-ink sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-6 sm:px-8">
-          <span className="font-brand text-[clamp(3.5rem,8vw,5.5rem)] leading-none font-extrabold text-[#F5B400]">{cur.n}</span>
+        <div key={step} className="anim-rise hidden items-start gap-5 rounded-3xl bg-card px-6 py-[22px] text-ink md:flex lg:gap-7 lg:px-8 lg:py-7">
+          <span className="font-brand text-[64px] leading-[.9] font-extrabold text-[#F5B400] lg:text-[86px]">{cur.n}</span>
           <div className="flex flex-col gap-2">
-            <span className="text-[clamp(1.4rem,2.6vw,1.75rem)] font-bold">{t(cur.title)}</span>
-            <span className="text-[17px] leading-[1.7] text-[#3E3B35]">{t(cur.desc)}</span>
-            <span className="font-hand text-[17px] text-ink-2">{t(cur.out)}</span>
+            <span className="text-[19px] font-bold lg:text-[22px]">{t(cur.title)}</span>
+            <span className="text-[15px] leading-[1.7] text-[#3E3B35] lg:text-[16px]">{t(cur.desc)}</span>
+            <OutPill className="px-3 py-[5px] text-[13px]">{t(cur.out)}</OutPill>
           </div>
+        </div>
+
+        {/* มือถือ: accordion แนวตั้ง */}
+        <div className="relative mt-1.5 flex flex-col gap-2.5 md:hidden">
+          <span
+            aria-hidden="true"
+            className="absolute top-5 bottom-5 left-[19px] w-0.5"
+            style={{ background: 'repeating-linear-gradient(180deg, #5B574F 0 6px, transparent 6px 11px)' }}
+          />
+          {STEPS.map((s, i) => {
+            const on = i === step
+            return (
+              <div key={s.n} className={cn('relative grid grid-cols-[40px_minmax(0,1fr)] gap-3', !on && 'items-center')}>
+                <span className={cn('relative z-10 grid size-10 place-items-center rounded-full font-code font-extrabold', on ? 'text-[14px]' : 'text-[13px]', dotCls(i, step))}>{s.n}</span>
+                {on ? (
+                  <div className="anim-pop flex flex-col gap-2 rounded-[18px] bg-card px-4 py-3.5 text-ink">
+                    <button type="button" aria-expanded="true" onClick={() => setStep(i)} className="flex min-h-11 items-center justify-between gap-3 text-left">
+                      <span className="text-[16px] font-bold">{t(s.title)}</span>
+                      <span aria-hidden="true" className="text-[18px] font-bold">−</span>
+                    </button>
+                    <span className="text-[14px] leading-[1.65] text-[#3E3B35]">{t(s.desc)}</span>
+                    <OutPill className="px-2.5 py-1 text-[12.5px]">{t(s.out)}</OutPill>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    aria-expanded="false"
+                    onClick={() => setStep(i)}
+                    className="flex min-h-12 items-center justify-between gap-3 rounded-[14px] bg-[#2C2A26] px-4 text-left text-[14.5px] font-bold text-card active:bg-[#3A3833]"
+                  >
+                    {t(s.title)}
+                    <span aria-hidden="true" className="text-[18px] text-ink-3">+</span>
+                  </button>
+                )}
+              </div>
+            )
+          })}
         </div>
       </section>
     </Container>

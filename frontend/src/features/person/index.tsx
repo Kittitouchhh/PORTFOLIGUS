@@ -10,8 +10,10 @@ import { cn } from '@/utils/cn'
 import { PhotoWall } from './PhotoWall'
 
 /**
- * 03 — ตัวตน (ดีไซน์ v4)
- * โพลารอยด์ "โหมดเข้าห้องประชุม" + การ์ดนิสัย 4 ใบ กดพลิกได้ · รูปงานจริง (ประวัติการศึกษาย้ายไปอยู่ต่อจากปก → Education.tsx)
+ * 04 — ตัวตน (ดีไซน์ v8 · V8*08About)
+ * จอคอม/ไอแพด: โพลารอยด์ "โหมดเข้าห้องประชุม" เอียง + สติกเกอร์ชูสองนิ้ว ซ้าย / การ์ดนิสัย 2×2 กดพลิกได้ ขวา
+ * มือถือ: หัวข้อกลาง → รูปกลาง → การ์ด 2×2
+ * ต่อด้วยแถบดำ "รูปจากงานจริง" (PhotoWall) · ประวัติการศึกษาอยู่ต่อจากปก → Education.tsx
  */
 
 const TRAITS: { k: string; title: L; desc: L; bg: string }[] = [
@@ -35,70 +37,87 @@ export function Person() {
   const ref = useReveal<HTMLElement>()
   const [flipped, setFlipped] = useState<Record<number, boolean>>({})
 
+  const head = (
+    <div className="flex flex-col items-center gap-2 text-center md:items-start md:text-left">
+      <p className="font-brand text-[12px] font-extrabold tracking-[0.14em] text-ink-2 md:text-[12.5px] lg:text-[13px]">
+        04 <span aria-hidden="true" className="chapter-line mx-1" /> {t(txt.eyebrow)}
+      </p>
+      <h2 className="text-[23px] leading-[1.32] font-bold tracking-[-0.01em] md:text-[31px] lg:text-[40px]">
+        <span className="mark px-1">{t(txt.title)}</span>
+      </h2>
+      <span className="font-hand text-[15px] text-ink-2 md:text-[16px] lg:text-[17px]">{t(txt.flipHint)}</span>
+    </div>
+  )
+
   return (
     <>
-    <SectionBand tone="paper" className="py-12">
+    <SectionBand tone="paper" className="py-11 md:pt-[72px] md:pb-20 lg:pt-24 lg:pb-[104px]">
     <Container>
-      <section id="about" ref={ref} className="reveal scroll-mt-10">
-        <div className="grid items-center gap-14 lg:grid-cols-[26rem_minmax(0,1fr)]">
-          {/* โพลารอยด์ */}
-          <div className="relative mx-auto h-[26rem] w-full max-w-[26rem] sm:h-[31rem]">
-            <span aria-hidden="true" className="absolute inset-[40px_30px_30px_20px] -rotate-[4deg] rounded-[40px] border-2 border-ink bg-[#DCE4FB]" />
-            <figure className="absolute top-2.5 left-10 flex w-[15rem] -rotate-3 flex-col gap-2.5 rounded-[10px] border-2 border-ink bg-card p-3 pb-4 shadow-[8px_8px_0_var(--ink)] sm:w-[18.75rem]">
-              <img src="/photos/portrait-uniform.webp" alt="" className="h-[18rem] w-full rounded object-cover object-[center_16%] sm:h-[21.875rem]" />
-              <figcaption className="font-hand text-center text-[20px]">{t(txt.cap)}</figcaption>
-            </figure>
-            <img src="/stickers/gus-peace.webp" alt="" aria-hidden="true" className="anim-float absolute -right-2.5 -bottom-2.5 w-40 rotate-[8deg] sm:w-48" />
-          </div>
+      <section id="about" ref={ref} className="reveal flex scroll-mt-10 flex-col gap-4 md:flex-row md:items-center md:gap-12 lg:gap-20">
+        {/* มือถือ: หัวข้ออยู่บนรูป */}
+        <div className="md:hidden">{head}</div>
 
-          <div className="flex flex-col gap-4">
-            <p className="font-brand text-[15px] font-extrabold tracking-[0.12em] text-ink-2">
-              03 <span aria-hidden="true" className="chapter-line mx-1" /> {t(txt.eyebrow)}
-            </p>
-            <h2 className="text-[clamp(2.4rem,5.5vw,4rem)] leading-[1.1] font-bold tracking-[-0.02em]">
-              <span className="mark px-1.5">{t(txt.title)}</span>
-            </h2>
-            <span className="font-hand text-[19px] text-ink-2">{t(txt.flipHint)}</span>
-            <Reveal stagger className="grid gap-4 sm:grid-cols-2">
-              {TRAITS.map((x, i) => {
-                const on = !!flipped[i]
-                return (
-                  <button
-                    key={x.k}
-                    type="button"
-                    aria-pressed={on}
-                    onClick={() => setFlipped((f) => ({ ...f, [i]: !f[i] }))}
-                    className={cn(
-                      'flex min-h-[10.5rem] flex-col items-start gap-2 rounded-[22px] border-2 border-ink px-6 py-5 text-left transition-all duration-300',
-                      on
-                        ? cn('bg-ink text-page shadow-[5px_5px_0_var(--yellow)]', i % 2 ? 'rotate-[1.5deg]' : '-rotate-[1.5deg]')
-                        : cn(x.bg, 'shadow-[5px_5px_0_var(--ink)] hover:-translate-y-1'),
-                    )}
-                  >
-                    {on ? (
-                      <span key="b" className="anim-pop flex h-full w-full flex-col gap-2">
-                        <span className="text-[16.5px] leading-[1.7]">{t(x.desc)}</span>
-                        <span className="font-hand mt-auto text-[16px] opacity-70">{t(txt.back)}</span>
-                      </span>
-                    ) : (
-                      <span key="f" className="flex h-full w-full flex-col gap-2">
-                        <span className="font-brand text-[13px] font-extrabold tracking-[0.1em] opacity-70">{x.k}</span>
-                        <span className="text-[clamp(1.25rem,2vw,1.55rem)] leading-[1.3] font-bold">{t(x.title)}</span>
-                        <span className="font-hand mt-auto text-[16px] opacity-70">{t(txt.flip)}</span>
-                      </span>
-                    )}
-                  </button>
-                )
-              })}
-            </Reveal>
+        {/* โพลารอยด์ */}
+        <div className="flex justify-center pt-2 pb-[18px] md:p-0">
+          <div className="relative w-[210px] shrink-0 md:w-[250px] lg:w-[330px]">
+            <figure className="relative m-0 -rotate-3 rounded-md border-2 border-ink bg-card p-3 pb-11 shadow-[6px_6px_0_var(--ink)]">
+              <img
+                src="/photos/portrait-uniform.webp"
+                alt={t(l('กัส ชุดนักศึกษา', 'Gus in student uniform'))}
+                className="block h-[247px] w-full object-cover object-[center_18%] md:h-[295px] lg:h-[389px]"
+              />
+              <figcaption className="font-hand absolute inset-x-0 bottom-3 text-center text-[16px]">{t(txt.cap)}</figcaption>
+            </figure>
+            <img
+              src="/stickers/gus-peace.webp"
+              alt=""
+              aria-hidden="true"
+              className="anim-float pointer-events-none absolute -right-9 -bottom-6 h-[115px] md:-right-10 md:h-[137px] lg:h-[181px]"
+            />
           </div>
         </div>
 
+        <div className="flex min-w-0 flex-1 flex-col gap-5">
+          <div className="hidden md:block">{head}</div>
+          <Reveal stagger className="grid grid-cols-2 gap-2.5 md:gap-4">
+            {TRAITS.map((x, i) => {
+              const on = !!flipped[i]
+              return (
+                <button
+                  key={x.k}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => setFlipped((f) => ({ ...f, [i]: !f[i] }))}
+                  className={cn(
+                    'flex min-h-[170px] min-w-0 flex-col items-start gap-2 rounded-[18px] border-2 border-ink p-3 text-left transition-all duration-300 md:min-h-[150px] md:p-4',
+                    on
+                      ? cn('bg-ink text-card shadow-[4px_4px_0_var(--yellow)]', i % 2 ? 'rotate-[1.5deg]' : '-rotate-[1.5deg]')
+                      : cn(x.bg, 'shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1'),
+                  )}
+                >
+                  {on ? (
+                    <span key="b" className="anim-pop flex h-full w-full flex-col gap-2">
+                      <span className="font-brand text-[11px] font-extrabold tracking-[0.12em] text-yellow">{x.k}</span>
+                      <span className="text-[12px] leading-[1.6] text-[#E9E4DA] md:text-[13.5px] lg:text-[14px]">{t(x.desc)}</span>
+                      <span className="mt-auto text-[12px] font-bold text-yellow">{t(txt.back)}</span>
+                    </span>
+                  ) : (
+                    <span key="f" className="flex h-full w-full flex-col gap-2">
+                      <span className="font-brand text-[11px] font-extrabold tracking-[0.12em] text-ink-2">{x.k}</span>
+                      <span className="text-[14.5px] leading-[1.4] font-bold md:text-[17px]">{t(x.title)}</span>
+                      <span className="mt-auto text-[12px] font-bold text-ink-2">{t(txt.flip)}</span>
+                    </span>
+                  )}
+                </button>
+              )
+            })}
+          </Reveal>
+        </div>
       </section>
     </Container>
     </SectionBand>
 
-    <SectionBand tone="card" className="pt-12 pb-14 lg:pt-[55px] lg:pb-[60px]">
+    <SectionBand tone="dark" className="py-11 md:pt-[72px] md:pb-20 lg:pt-24 lg:pb-[104px]">
       <Container>
         <PhotoWall />
       </Container>

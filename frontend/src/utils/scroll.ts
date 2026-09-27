@@ -4,7 +4,7 @@ import { TOP_ID } from '@/constants/sections'
  * ระยะเผื่อด้านบนตอนเลื่อนไปหาหัวข้อ
  * จอกว้างใช้แถบข้าง (ไม่มีแถบบน) เลยเผื่อแค่ที่หายใจ · จอแคบยังมีแถบบนสูง ~72px
  */
-export const headerOffset = () => (typeof window !== 'undefined' && window.innerWidth >= 1024 ? 32 : 88)
+export const headerOffset = () => (typeof window !== 'undefined' && window.innerWidth >= 1100 ? 32 : 88)
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
