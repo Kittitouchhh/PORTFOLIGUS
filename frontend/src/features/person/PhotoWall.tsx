@@ -29,8 +29,8 @@ const BIG: { src: string; cap: L; tag?: L; rot: string; shadow: string; tape: st
     img: 'aspect-[4/3]',
   },
   {
-    src: '/photos/present-mockup.webp',
-    cap: l('พรีเซนต์ mockup ให้ผู้ใช้ลองดูก่อนสร้างจริง', 'Showing users a mockup before it’s built'),
+    src: '/photos/meet-requirement.webp',
+    cap: l('ประชุมเก็บ requirement กับลูกค้า', 'Requirement meeting with the client'),
     rot: 'rotate-[1.2deg]',
     shadow: 'shadow-[6px_6px_0_#DCE4FB]',
     tape: 'rgba(220,228,251,.95)',

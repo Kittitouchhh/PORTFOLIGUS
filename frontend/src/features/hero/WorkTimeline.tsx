@@ -68,21 +68,21 @@ export function WorkTimeline() {
         <span className="font-hand text-[15px] text-ink-2 md:text-[16px] lg:text-[17px]">{t(txt.hint)}</span>
       </div>
 
-      {/* แถบเดือน 14 ช่อง — ไอแพด/คอม (มือถือใช้จุดในรายการแทน) · การ์ดข้างล่างบอกข้อมูลครบแล้ว เลยซ่อนจาก screen reader */}
-      <div aria-hidden="true" className="relative mt-[30px] hidden flex-col gap-2 md:flex">
+      {/* แถบเดือน 14 ช่อง — ทุกจอ (มือถือย่อตัวหนังสือเดือนให้พอดีช่อง ~20px) · การ์ดข้างล่างบอกข้อมูลครบแล้ว เลยซ่อนจาก screen reader */}
+      <div aria-hidden="true" className="relative mt-[30px] flex flex-col gap-1.5 md:gap-2">
         {inRange && (
           <span className="absolute -top-[34px] flex -translate-x-1/2 flex-col items-center" style={{ left: `${((cur + 0.5) / MONTHS.length) * 100}%` }}>
-            <span className="rounded-full border-[1.5px] border-ink bg-yellow px-2.5 py-0.5 text-[12px] font-extrabold whitespace-nowrap">
+            <span className="rounded-full border-[1.5px] border-ink bg-yellow px-2 py-0.5 text-[11px] font-extrabold whitespace-nowrap md:px-2.5 md:text-[12px]">
               {t(txt.now)} · {t(MONTHS[cur])}
             </span>
             <span className="h-3.5 w-0.5 bg-ink" />
           </span>
         )}
-        <div className="grid grid-cols-14 items-center gap-1">
+        <div className="grid grid-cols-14 items-center gap-0.5 md:gap-1">
           {SPANS.map((span, i) => (
             <span
               key={i}
-              className={cn('rounded-lg transition-all duration-300', i === phase ? 'h-3.5 outline-[3px] outline-offset-2 outline-yellow outline-solid' : 'h-2.5')}
+              className={cn('rounded-lg transition-all duration-300', i === phase ? 'h-2.5 outline-2 outline-offset-1 outline-yellow outline-solid md:h-3.5 md:outline-[3px] md:outline-offset-2' : 'h-2 md:h-2.5')}
               style={{
                 gridColumn: `span ${span}`,
                 background: i === LAST ? `repeating-linear-gradient(90deg, ${COLORS[i]} 0 8px, transparent 8px 13px)` : COLORS[i],
@@ -90,9 +90,9 @@ export function WorkTimeline() {
             />
           ))}
         </div>
-        <div className="grid grid-cols-14 gap-1">
+        <div className="grid grid-cols-14 gap-0.5 md:gap-1">
           {MONTHS.map((m, i) => (
-            <span key={i} className={cn('font-code text-center text-[10px] lg:text-[11px]', i === cur ? 'font-bold text-ink' : 'text-[#9C958A]')}>
+            <span key={i} className={cn('text-center text-[8.5px] leading-tight tracking-[-0.03em] whitespace-nowrap md:font-mono md:text-[10px] md:tracking-normal lg:text-[11px]', i === cur ? 'font-bold text-ink' : 'text-[#9C958A]')}>
               {t(m)}
             </span>
           ))}

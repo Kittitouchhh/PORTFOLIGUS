@@ -113,11 +113,11 @@ export function SeniorProjectDesktop() {
             </span>
           </div>
           <div className="flex -rotate-1 flex-col gap-2 rounded-3xl border-2 border-ink bg-yellow px-7 py-6 shadow-[5px_5px_0_var(--ink)]">
-            <span className="font-brand text-[62px] leading-none font-extrabold">86.7%</span>
+            <span className="font-brand text-[62px] leading-none font-extrabold text-ink">86.7%</span>
             <span className="text-[15.5px] leading-relaxed">{t(txt.survey)}</span>
           </div>
           <div className="flex rotate-1 flex-col gap-2 rounded-3xl border-2 border-ink bg-card px-7 py-6 shadow-[5px_5px_0_var(--ink)]">
-            <span className="font-brand text-[62px] leading-none font-extrabold">
+            <span className="font-brand text-[62px] leading-none font-extrabold text-ink">
               26<span className="text-[22px]"> {t(txt.shops)}</span>
             </span>
             <span className="text-[15.5px] leading-relaxed">{t(txt.shopsNote)}</span>

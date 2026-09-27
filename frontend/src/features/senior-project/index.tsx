@@ -125,13 +125,13 @@ export function SeniorProject() {
                 </span>
               </div>
               <div className="flex flex-col gap-1.5 rounded-[22px] border-2 border-ink bg-yellow p-5 shadow-[4px_4px_0_var(--ink)]">
-                <span className="font-brand text-[40px] leading-none font-extrabold lg:text-[48px]">86.7%</span>
+                <span className="font-brand text-[40px] leading-none font-extrabold text-ink lg:text-[48px]">86.7%</span>
                 <span className="text-[13px] leading-[1.6] text-[#3E3B35]">{t(txt.survey)}</span>
               </div>
               <div className="flex flex-col gap-1.5 rounded-[22px] border-2 border-ink bg-card p-5 shadow-[4px_4px_0_var(--ink)]">
                 <span className="flex items-baseline gap-1.5">
-                  <span className="font-brand text-[40px] leading-none font-extrabold lg:text-[48px]">26</span>
-                  <span className="text-[14px] font-bold">{t(txt.shops)}</span>
+                  <span className="font-brand text-[40px] leading-none font-extrabold text-ink lg:text-[48px]">26</span>
+                  <span className="text-[14px] font-bold text-ink">{t(txt.shops)}</span>
                 </span>
                 <span className="text-[13px] leading-[1.6] text-[#3E3B35]">{t(txt.shopsNote)}</span>
               </div>

@@ -25,6 +25,8 @@ const TONES: Record<BandTone, string> = {
 const MARGIN = 48
 /** ย่อได้ไม่ต่ำกว่านี้ — เล็กกว่านี้อ่านไม่ออก ปล่อยให้เลื่อนอ่านแทน */
 const MIN_ZOOM = 0.62
+/** grow: ขยายได้สูงสุดเท่านี้บนจอใหญ่ (ไม่เกินความกว้างจอ ÷ 1440 เพื่อไม่ให้ล้นข้าง) */
+const MAX_GROW = 1.25
 
 const desktop = () => window.innerWidth >= 1100 && window.innerHeight >= 600
 
@@ -42,6 +44,7 @@ export function SectionBand({
   id,
   className,
   noMagnet = false,
+  grow = false,
   children,
 }: {
   tone: BandTone
@@ -49,6 +52,8 @@ export function SectionBand({
   className?: string
   /** true = แม่เหล็กไม่ดูดแถบนี้ */
   noMagnet?: boolean
+  /** true = จอใหญ่ขยายเนื้อหาให้เต็มจอได้ (ปกติย่ออย่างเดียว) */
+  grow?: boolean
   children: ReactNode
 }) {
   const ref = useRef<HTMLDivElement | null>(null)
@@ -82,8 +87,9 @@ export function SectionBand({
         } else {
           const cs = getComputedStyle(node)
           const pad = Math.max(MARGIN * 2, parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom))
-          const z = Math.max(MIN_ZOOM, Math.min(1, (vh - pad) / inner.offsetHeight))
-          if (z < 1) inner.style.zoom = String(z)
+          const max = grow ? Math.max(1, Math.min(MAX_GROW, window.innerWidth / 1440)) : 1
+          const z = Math.max(MIN_ZOOM, Math.min(max, (vh - pad) / inner.offsetHeight))
+          if (Math.abs(z - 1) > 0.01) inner.style.zoom = String(z)
         }
       }
       node.classList.toggle('is-tall', node.offsetHeight > window.innerHeight + 2)
@@ -103,7 +109,7 @@ export function SectionBand({
       ro?.disconnect()
       window.removeEventListener('resize', schedule)
     }
-  }, [])
+  }, [grow])
 
   return (
     <div

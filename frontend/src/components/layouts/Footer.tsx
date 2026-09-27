@@ -14,14 +14,14 @@ const txt = {
   top: l('กลับขึ้นบน', 'Back to top'),
 }
 
-/** compact = วางต่อท้ายจอติดต่อ (หน้าแรก) · ไม่ compact = หน้าอื่นที่ไม่มีจอติดต่อ */
-export function Footer({ compact = false }: { compact?: boolean }) {
+/** compact = วางต่อท้ายจอติดต่อ (หน้าแรก) · flush = ชิดใต้จอติดต่อพอดี ไม่เว้นระยะ (จอคอม) · ไม่ใส่ = หน้าอื่นที่ไม่มีจอติดต่อ */
+export function Footer({ compact = false, flush = false }: { compact?: boolean; flush?: boolean }) {
   const { t, lang } = useLang()
   const year = new Date().getFullYear() + (lang === 'th' ? 543 : 0)
   const updated = new Date(__BUILD_DATE__).toLocaleDateString(lang === 'th' ? 'th-TH' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
 
   return (
-    <footer className={cn('bg-ink text-card', compact ? 'mt-16 md:mt-20' : 'mt-20')}>
+    <footer className={cn('bg-ink text-card', flush ? '' : compact ? 'mt-16 md:mt-20' : 'mt-20')}>
       <Container className="flex flex-col items-center gap-4 py-9 text-center md:flex-row md:justify-between md:text-left">
         <div className="flex flex-col gap-1">
           <p className="text-[17px] font-bold text-card">{t(txt.thanks)}</p>

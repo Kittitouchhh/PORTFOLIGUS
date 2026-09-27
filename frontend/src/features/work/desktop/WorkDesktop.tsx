@@ -193,9 +193,9 @@ function Cases() {
   }
 
   return (
-    <SectionBand tone="card" id="work" className="pb-12">
-      {/* แถบวิ่งเอียงอยู่ในจอเดียวกับงาน — ดูดมาที่ส่วนงานแล้วเห็นแถบด้วย */}
-      <TiltMarquee className="mb-8 pt-6" />
+    <SectionBand tone="card" id="work" grow className="relative pt-[88px] pb-[72px]">
+      {/* แถบวิ่งแนวตรง ชิดขอบล่างของจองาน — absolute ไม่กินความสูงเนื้อหา (เนื้อหาเลยไม่โดนย่อ) และไม่ชนปุ่มลอยขวาบน */}
+      <TiltMarquee className="absolute inset-x-0 bottom-0" />
       <Container className="lg:px-20">
         {/* หัวข้อซ้าย · การ์ดเลือกเคส 3 ใบแบบย่อ ขวา — ให้จอนี้เห็นรายละเอียด + mockup ในจอเดียว */}
         <div className="mb-6 flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">

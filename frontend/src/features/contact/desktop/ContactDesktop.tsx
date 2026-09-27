@@ -46,7 +46,8 @@ export function ContactDesktop() {
   }
 
   return (
-    <SectionBand tone="paper" className="pt-28 pb-0 lg:pt-[120px]">
+    <>
+    <SectionBand tone="paper" grow className="pt-28 pb-16 lg:pt-[120px]">
     <Container>
       <section id="contact" ref={ref} className="pop-card relative grid scroll-mt-10 gap-10 rounded-[40px] border-2 border-ink bg-yellow p-6 shadow-[10px_10px_0_var(--ink)] sm:p-12 lg:grid-cols-2 lg:gap-12">
         <img
@@ -117,8 +118,9 @@ export function ContactDesktop() {
         </div>
       </section>
     </Container>
-    {/* footer อยู่ในจอเดียวกับติดต่อ — จอสุดท้ายจบในหน้าเดียว */}
-    <Footer compact />
     </SectionBand>
+    {/* footer อยู่ใต้จอติดต่อ (ไม่นับรวมตอนขยายให้พอดีจอ — การ์ดติดต่อเลยใหญ่ขึ้นได้) */}
+    <Footer flush />
+    </>
   )
 }

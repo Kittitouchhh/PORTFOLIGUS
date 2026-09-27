@@ -21,7 +21,7 @@ type Pic = { src: string; cap: L; ar: number }
 
 const BIG: { src: string; cap: L; tag?: L; rot: string; tape: string; tapeSide: string }[] = [
   { src: '/photos/present-users-30.webp', cap: l('นำเสนองานให้ผู้ใช้จริง 20+ คน', 'Presenting to 20+ real users'), tag: l('นำเสนอกับผู้ใช้งาน', 'With users'), rot: '-rotate-1', tape: 'rgba(255,201,64,.9)', tapeSide: 'left-10 -rotate-[4deg]' },
-  { src: '/photos/present-mockup.webp', cap: l('พรีเซนต์ mockup ให้ผู้ใช้ลองดูก่อนสร้างจริง', 'Showing users a mockup before it’s built'), rot: 'rotate-[1.2deg]', tape: 'rgba(220,228,251,.95)', tapeSide: 'right-10 rotate-[5deg]' },
+  { src: '/photos/meet-requirement.webp', cap: l('ประชุมเก็บ requirement กับลูกค้า', 'Requirement meeting with the client'), rot: 'rotate-[1.2deg]', tape: 'rgba(220,228,251,.95)', tapeSide: 'right-10 rotate-[5deg]' },
 ]
 
 const GROUPS: { name: L; note: L; rowH: number; color: string; soft: string; icon: string; rows: Pic[][] }[] = [
